@@ -1,0 +1,65 @@
+body {
+    font-family: Helvetica, Ubuntu, Arial, sans-serif;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+#meme-wrapper {
+    border: 1px solid #000000;
+    padding: 5px;
+}
+
+.meme {
+    width: 450px;
+    height: 450px;
+    background-color: #efefef;
+    background-image: url('http://vignette1.wikia.nocookie.net/meme/images/7/71/BusinessCat2.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.meme-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 5px 0;
+    padding: 0 5px;
+    font-family: Impact;
+    font-size: 40px;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 1px;
+    text-shadow:2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    0px 2px 0 #000,
+    2px 0px 0 #000,
+    0px -2px 0 #000,
+    -2px 0px 0 #000,
+    2px 2px 5px #000;
+}
+
+.meme-text--bottom {
+    bottom: 0;
+}
+
+.meme-text--top {
+    top: 0;
+}
+
+.meme-text--left {
+    text-align: left;
+}
+
+.meme-text--right {
+    text-align: right;
+}
+
+.meme-text--center {
+    text-align: center;
+}

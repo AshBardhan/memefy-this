@@ -1,7 +1,7 @@
 {
   "name": "meme-machine",
   "version": "0.0.1",
-  "manifest_version": 1,
+  "manifest_version": 2,
   "description": "This extension was created with the awesome extensionizr.com",
   "homepage_url": "http://extensionizr.com",
   "icons": {
@@ -17,6 +17,6 @@
   "browser_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser action demo",
-    "default_popup": "src/browser_action/browser_action.html"
+    "default_popup": "src/browser_action/popup.html"
   }
 }
