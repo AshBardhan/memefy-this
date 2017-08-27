@@ -27,11 +27,18 @@ body {
     left: 0;
     right: 0;
     margin: 5px 0;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
     padding: 0 5px;
     font-family: Impact;
     font-size: 40px;
+    line-height: 1.2;
     text-transform: uppercase;
     color: white;
+    background: transparent;
+    outline: 0;
+    border: none;
     letter-spacing: 1px;
     text-shadow:2px 2px 0 #000,
     -2px -2px 0 #000,
