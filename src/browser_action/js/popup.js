@@ -1,4 +1,5 @@
-var memeTexts = document.getElementsByClassName('js-meme-text');
+var memeTexts = document.querySelectorAll('.js-meme-text'),
+    memeBtns = document.querySelectorAll('.js-btn');
 
 function adjustHeight(el, minHeight) {
     // compute the height difference which is caused by border and outline
@@ -14,12 +15,21 @@ function adjustHeight(el, minHeight) {
 }
 
 [].forEach.call(memeTexts, function (memeText) {
-    var minHeight = memeText.scrollHeight;
+    memeText.minHeight = memeText.scrollHeight;
 
     memeText.addEventListener('input', function () {
-        adjustHeight(this, minHeight);
+        adjustHeight(this, this.minHeight);
     });
 
     // we adjust height to the initial content
-    adjustHeight(memeText, minHeight);
+    adjustHeight(memeText, memeText.minHeight);
+});
+
+[].forEach.call(memeBtns, function (memeBtn) {
+    memeBtn.onclick = function (e) {
+        var position = this.getAttribute('data-pos');
+        console.log(position);
+        memeTexts[0].classList.remove('meme-text--center', 'meme-text--left', 'meme-text--right');
+        memeTexts[0].classList.add('meme-text--' + position);
+    };
 });

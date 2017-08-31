@@ -70,3 +70,21 @@ body {
 .meme-text--center {
     text-align: center;
 }
+
+#meme-options {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.btn:hover {
+    background: rgba(0, 0, 0, 0.35);
+}
