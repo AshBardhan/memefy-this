@@ -32,14 +32,13 @@ body {
     overflow: hidden;
     padding: 0 5px;
     font-family: Impact;
-    font-size: 40px;
     line-height: 1.2;
     text-transform: uppercase;
     color: white;
     background: transparent;
     outline: 0;
     border: none;
-    letter-spacing: 1px;
+    letter-spacing: 0.025em;
     text-shadow:2px 2px 0 #000,
     -2px -2px 0 #000,
     2px -2px 0 #000,
@@ -59,16 +58,36 @@ body {
     top: 0;
 }
 
-.meme-text--left {
+.meme-text[data-pos=left] {
     text-align: left;
 }
 
-.meme-text--right {
+.meme-text[data-pos=right] {
     text-align: right;
 }
 
-.meme-text--center {
+.meme-text[data-pos=center] {
     text-align: center;
+}
+
+.meme-text[data-size=xsmall] {
+    font-size: 20px;
+}
+
+.meme-text[data-size=small] {
+    font-size: 30px;
+}
+
+.meme-text[data-size=medium] {
+    font-size: 40px;
+}
+
+.meme-text[data-size=large] {
+    font-size: 50px;
+}
+
+.meme-text[data-size=xlarge] {
+    font-size: 60px;
 }
 
 #meme-options {
@@ -78,7 +97,7 @@ body {
 
 .btn {
     display: inline-block;
-    padding: 5px 15px;
+    padding: 5px;
     margin: 0 10px;
     cursor: pointer;
     border-radius: 4px;

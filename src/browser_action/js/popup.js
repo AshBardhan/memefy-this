@@ -1,5 +1,9 @@
 var memeTexts = document.querySelectorAll('.js-meme-text'),
-    memeBtns = document.querySelectorAll('.js-btn');
+    memePosBtns = document.querySelectorAll('.js-pos-btn'),
+    memeSizeBtns = document.querySelectorAll('.js-size-btn');
+
+var defaultPosition = 'center';
+var defaultFontSize = 'medium';
 
 function adjustHeight(el, minHeight) {
     // compute the height difference which is caused by border and outline
@@ -14,22 +18,37 @@ function adjustHeight(el, minHeight) {
     el.style.height = Math.max(minHeight, el.scrollHeight + diff) + 'px';
 }
 
-[].forEach.call(memeTexts, function (memeText) {
+function setMemeTextHeight(memeText) {
+    // we adjust height to the initial content
+    memeText.style.height = 0;
     memeText.minHeight = memeText.scrollHeight;
+    adjustHeight(memeText, memeText.minHeight);
+}
+
+[].forEach.call(memeTexts, function (memeText) {
+    memeText.setAttribute('data-pos', defaultPosition);
+    memeText.setAttribute('data-size', defaultFontSize);
+
+    setMemeTextHeight(memeText);
 
     memeText.addEventListener('input', function () {
         adjustHeight(this, this.minHeight);
     });
-
-    // we adjust height to the initial content
-    adjustHeight(memeText, memeText.minHeight);
 });
 
-[].forEach.call(memeBtns, function (memeBtn) {
-    memeBtn.onclick = function (e) {
+[].forEach.call(memePosBtns, function (memePosBtn) {
+    memePosBtn.onclick = function () {
         var position = this.getAttribute('data-pos');
         console.log(position);
-        memeTexts[0].classList.remove('meme-text--center', 'meme-text--left', 'meme-text--right');
-        memeTexts[0].classList.add('meme-text--' + position);
+        memeTexts[0].setAttribute('data-pos', position);
+    };
+});
+
+[].forEach.call(memeSizeBtns, function (memeSizeBtn) {
+    memeSizeBtn.onclick = function () {
+        var fontSize = this.getAttribute('data-size');
+        console.log(fontSize);
+        memeTexts[0].setAttribute('data-size', fontSize);
+        setMemeTextHeight(memeTexts[0])
     };
 });
