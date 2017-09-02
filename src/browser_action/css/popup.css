@@ -50,7 +50,7 @@ body {
     2px 2px 5px #000;
 }
 
-.meme-text:focus {
+.meme-text.selected {
     background: rgba(0, 0, 0, 0.35);
 }
 
@@ -114,5 +114,9 @@ body {
 }
 
 .btn:hover {
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.btn.selected {
+    background: rgba(0, 0, 0, 0.3);
 }

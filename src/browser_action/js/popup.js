@@ -1,11 +1,36 @@
 var memeTexts = document.querySelectorAll('.js-meme-text'),
     memePosBtns = document.querySelectorAll('.js-pos-btn'),
     memeSizeBtns = document.querySelectorAll('.js-size-btn'),
-    memeOptions  = document.querySelector('.js-meme-options');
+    memeOptionsBox = document.querySelector('.js-meme-options');
 
 var defaultPosition = 'center';
 var defaultFontSize = 'medium';
-var currentSelectedText;
+var selectedTextType, selectedText;
+
+var memeOptions = {
+    'top': {
+        'size': defaultFontSize,
+        'pos': defaultPosition
+    },
+    'bottom': {
+        'size': defaultFontSize,
+        'pos': defaultPosition
+    }
+};
+
+function setMemeOptionsBoxPosition() {
+    memeOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeOptionsBox.offsetHeight : selectedText.offsetTop + selectedText.offsetHeight) + 'px';
+}
+
+function setMemeOptionsBox(optionType) {
+    var memeGroupOptions = memeOptionsBox.querySelectorAll('[data-' + optionType + ']');
+    [].forEach.call(memeGroupOptions, function (memeGroupOption) {
+        memeGroupOption.classList.remove('selected');
+        if (memeGroupOption.getAttribute('data-' + optionType) === memeOptions[selectedTextType][optionType]) {
+            memeGroupOption.classList.add('selected');
+        }
+    });
+}
 
 function adjustHeight(el, minHeight) {
     // compute the height difference which is caused by border and outline
@@ -35,13 +60,19 @@ function setMemeTextHeight(memeText) {
 
     memeText.addEventListener('input', function () {
         adjustHeight(this, this.minHeight);
+        setMemeOptionsBoxPosition();
     });
 
     memeText.addEventListener('focus', function () {
         var type = this.getAttribute('data-type');
         console.log(type);
-        memeOptions.style.top = (type === 'bottom' ? memeText.offsetTop - memeOptions.offsetHeight : memeText.offsetTop + memeText.offsetHeight) + 'px';
-        currentSelectedText = type;
+        memeText.classList.add('selected');
+        selectedTextType = type;
+        selectedText = memeText;
+        ['size', 'pos'].forEach(function (optionType) {
+            setMemeOptionsBox(optionType);
+        });
+        setMemeOptionsBoxPosition();
     })
 });
 
@@ -49,7 +80,9 @@ function setMemeTextHeight(memeText) {
     memePosBtn.onclick = function () {
         var position = this.getAttribute('data-pos');
         console.log(position);
-        memeTexts[0].setAttribute('data-pos', position);
+        selectedText.setAttribute('data-pos', position);
+        memeOptions[selectedTextType]['pos'] = position;
+        setMemeOptionsBox('pos');
     };
 });
 
@@ -57,7 +90,10 @@ function setMemeTextHeight(memeText) {
     memeSizeBtn.onclick = function () {
         var fontSize = this.getAttribute('data-size');
         console.log(fontSize);
-        memeTexts[0].setAttribute('data-size', fontSize);
-        setMemeTextHeight(memeTexts[0])
+        selectedText.setAttribute('data-size', fontSize);
+        memeOptions[selectedTextType]['size'] = fontSize;
+        setMemeOptionsBox('size');
+        setMemeTextHeight(selectedText);
+        setMemeOptionsBoxPosition();
     };
 });
