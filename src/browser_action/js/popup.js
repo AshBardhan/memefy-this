@@ -1,9 +1,11 @@
 var memeTexts = document.querySelectorAll('.js-meme-text'),
     memePosBtns = document.querySelectorAll('.js-pos-btn'),
-    memeSizeBtns = document.querySelectorAll('.js-size-btn');
+    memeSizeBtns = document.querySelectorAll('.js-size-btn'),
+    memeOptions  = document.querySelector('.js-meme-options');
 
 var defaultPosition = 'center';
 var defaultFontSize = 'medium';
+var currentSelectedText;
 
 function adjustHeight(el, minHeight) {
     // compute the height difference which is caused by border and outline
@@ -34,6 +36,13 @@ function setMemeTextHeight(memeText) {
     memeText.addEventListener('input', function () {
         adjustHeight(this, this.minHeight);
     });
+
+    memeText.addEventListener('focus', function () {
+        var type = this.getAttribute('data-type');
+        console.log(type);
+        memeOptions.style.top = (type === 'bottom' ? memeText.offsetTop - memeOptions.offsetHeight : memeText.offsetTop + memeText.offsetHeight) + 'px';
+        currentSelectedText = type;
+    })
 });
 
 [].forEach.call(memePosBtns, function (memePosBtn) {

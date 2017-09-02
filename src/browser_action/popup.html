@@ -8,20 +8,20 @@
 <body>
     <div id="meme-wrapper">
         <div class="meme">
-            <textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text  meme-text--top  js-meme-text" tabindex="-1">Top Text</textarea>
-            <textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text  meme-text--bottom  js-meme-text" tabindex="-1">Bottom Text</textarea>
+            <textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text js-meme-text" tabindex="-1" data-type="top">Top Text</textarea>
+            <textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text  js-meme-text" tabindex="-1" data-type="bottom">Bottom Text</textarea>
         </div>
-    </div>
-    <div id="meme-options">
-        <div class="btn js-pos-btn" data-pos="left">L</div>
-        <div class="btn js-pos-btn" data-pos="center">C</div>
-        <div class="btn js-pos-btn" data-pos="right">R</div>
+        <div id="meme-options" class="js-meme-options">
+            <div class="btn js-pos-btn" data-pos="left">L</div>
+            <div class="btn js-pos-btn" data-pos="center">C</div>
+            <div class="btn js-pos-btn" data-pos="right">R</div>
 
-        <div class="btn js-size-btn" data-size="xsmall">XS</div>
-        <div class="btn js-size-btn" data-size="small">S</div>
-        <div class="btn js-size-btn" data-size="medium">M</div>
-        <div class="btn js-size-btn" data-size="large">L</div>
-        <div class="btn js-size-btn" data-size="xlarge">XL</div>
+            <div class="btn js-size-btn" data-size="xsmall">XS</div>
+            <div class="btn js-size-btn" data-size="small">S</div>
+            <div class="btn js-size-btn" data-size="medium">M</div>
+            <div class="btn js-size-btn" data-size="large">L</div>
+            <div class="btn js-size-btn" data-size="xlarge">XL</div>
+        </div>
     </div>
     <script src="js/popup.js"></script>
 </body>

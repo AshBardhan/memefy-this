@@ -39,7 +39,7 @@ body {
     outline: 0;
     border: none;
     letter-spacing: 0.025em;
-    text-shadow:2px 2px 0 #000,
+    text-shadow: 2px 2px 0 #000,
     -2px -2px 0 #000,
     2px -2px 0 #000,
     -2px 2px 0 #000,
@@ -50,11 +50,15 @@ body {
     2px 2px 5px #000;
 }
 
-.meme-text--bottom {
+.meme-text:focus {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.meme-text[data-type=bottom] {
     bottom: 0;
 }
 
-.meme-text--top {
+.meme-text[data-type=top] {
     top: 0;
 }
 
@@ -91,14 +95,19 @@ body {
 }
 
 #meme-options {
+    position: absolute;
+    width: 300px;
     text-align: center;
     margin: 10px 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
 }
 
 .btn {
     display: inline-block;
     padding: 5px;
-    margin: 0 10px;
+    margin: 0 5px;
     cursor: pointer;
     border-radius: 4px;
     text-align: center;
