@@ -22,6 +22,14 @@ function setMemeOptionsBoxPosition() {
     memeOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeOptionsBox.offsetHeight - 10: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 }
 
+function showMemeOptionsBoxPosition() {
+    memeOptionsBox.style.display = 'block';
+}
+
+function hideMemeOptionsBoxPosition() {
+    memeOptionsBox.style.display = 'none';
+}
+
 function setMemeOptionsBox(optionType) {
     var memeGroupOptions = memeOptionsBox.querySelectorAll('[data-' + optionType + ']');
     [].forEach.call(memeGroupOptions, function (memeGroupOption) {
@@ -73,6 +81,7 @@ function setMemeTextHeight(memeText) {
             setMemeOptionsBox(optionType);
         });
         setMemeOptionsBoxPosition();
+        showMemeOptionsBoxPosition();
     })
 });
 
