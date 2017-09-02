@@ -9,6 +9,7 @@ body {
 #meme-wrapper {
     border: 1px solid #000000;
     padding: 5px;
+    position: relative;
 }
 
 .meme {
@@ -26,7 +27,6 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    margin: 5px 0;
     width: 100%;
     resize: none;
     overflow: hidden;
@@ -55,11 +55,11 @@ body {
 }
 
 .meme-text[data-type=bottom] {
-    bottom: 0;
+    bottom: 5px;
 }
 
 .meme-text[data-type=top] {
-    top: 0;
+    top: 5px;
 }
 
 .meme-text[data-pos=left] {

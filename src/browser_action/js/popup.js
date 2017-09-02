@@ -19,7 +19,7 @@ var memeOptions = {
 };
 
 function setMemeOptionsBoxPosition() {
-    memeOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeOptionsBox.offsetHeight : selectedText.offsetTop + selectedText.offsetHeight) + 'px';
+    memeOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeOptionsBox.offsetHeight - 10: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 }
 
 function setMemeOptionsBox(optionType) {
