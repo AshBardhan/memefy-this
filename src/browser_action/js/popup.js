@@ -6,6 +6,7 @@ var memeTexts = document.querySelectorAll('.js-meme-text'),
 var defaultPosition = 'center';
 var defaultFontSize = 'medium';
 var selectedTextType, selectedText;
+var memeOptionSelected = false;
 
 var memeOptions = {
     'top': {
@@ -22,11 +23,12 @@ function setMemeOptionsBoxPosition() {
     memeOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeOptionsBox.offsetHeight - 10: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 }
 
-function showMemeOptionsBoxPosition() {
+function showMemeOptionsBox() {
     memeOptionsBox.style.display = 'block';
+    memeOptionsBox.setAttribute('type', selectedTextType);
 }
 
-function hideMemeOptionsBoxPosition() {
+function hideMemeOptionsBox() {
     memeOptionsBox.style.display = 'none';
 }
 
@@ -72,31 +74,47 @@ function setMemeTextHeight(memeText) {
     });
 
     memeText.addEventListener('focus', function () {
+        console.log('fouccsed')
         var type = this.getAttribute('data-type');
-        console.log(type);
         memeText.classList.add('selected');
         selectedTextType = type;
         selectedText = memeText;
         ['size', 'pos'].forEach(function (optionType) {
             setMemeOptionsBox(optionType);
         });
+        showMemeOptionsBox();
         setMemeOptionsBoxPosition();
-        showMemeOptionsBoxPosition();
-    })
+    });
+    
+    memeText.addEventListener('blur', function (e) {
+        if(!memeOptionSelected) {
+            memeText.classList.remove('selected');
+            hideMemeOptionsBox();
+        }
+    });
 });
 
 [].forEach.call(memePosBtns, function (memePosBtn) {
-    memePosBtn.onclick = function () {
+    memePosBtn.addEventListener('mousedown', function () {
+        memeOptionSelected = true;
         var position = this.getAttribute('data-pos');
         console.log(position);
         selectedText.setAttribute('data-pos', position);
         memeOptions[selectedTextType]['pos'] = position;
         setMemeOptionsBox('pos');
-    };
+        setTimeout(function () {
+            selectedText.focus();
+        }, 0);
+    });
+
+    memePosBtn.addEventListener('mouseout', function (e) {
+        memeOptionSelected = false;
+    });
 });
 
 [].forEach.call(memeSizeBtns, function (memeSizeBtn) {
-    memeSizeBtn.onclick = function () {
+    memeSizeBtn.addEventListener('mousedown', function () {
+        memeOptionSelected = true;
         var fontSize = this.getAttribute('data-size');
         console.log(fontSize);
         selectedText.setAttribute('data-size', fontSize);
@@ -104,5 +122,12 @@ function setMemeTextHeight(memeText) {
         setMemeOptionsBox('size');
         setMemeTextHeight(selectedText);
         setMemeOptionsBoxPosition();
-    };
+        setTimeout(function () {
+            selectedText.focus();
+        }, 0);
+    });
+
+    memeSizeBtn.addEventListener('mouseout', function (e) {
+        memeOptionSelected = false;
+    });
 });
