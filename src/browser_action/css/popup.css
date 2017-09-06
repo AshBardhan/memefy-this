@@ -10,6 +10,7 @@ body {
     border: 1px solid #000000;
     padding: 5px;
     position: relative;
+    text-align: center;
 }
 
 .meme {
@@ -96,9 +97,10 @@ body {
 
 #meme-options {
     position: absolute;
-    width: 300px;
+    width: 280px;
     text-align: center;
     margin: 10px 0;
+    padding: 5px 0;
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
@@ -126,11 +128,13 @@ body {
 
 .btn {
     display: inline-block;
-    padding: 5px;
-    margin: 0 5px;
+    margin: 0 2px;
     cursor: pointer;
     border-radius: 4px;
     text-align: center;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
 }
 
 .btn:hover {
@@ -139,4 +143,20 @@ body {
 
 .btn.selected {
     background: rgba(0, 0, 0, 0.3);
+}
+
+.download-meme {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 4px;
+    color: #ffffff;
+    background: #2a9eea;
+    font-size: 12px;
+    margin: 10px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.download-meme:hover {
+    background: #02b0ea;
 }
