@@ -1,7 +1,9 @@
 var memeTexts = document.querySelectorAll('.js-meme-text'),
     memePosBtns = document.querySelectorAll('.js-pos-btn'),
     memeSizeBtns = document.querySelectorAll('.js-size-btn'),
-    memeOptionsBox = document.querySelector('.js-meme-options');
+    memeOptionsBox = document.querySelector('.js-meme-options'),
+    memeDownloadBtn = document.getElementById('js-download-meme'),
+    memeBox = document.getElementById('js-meme-box');
 
 var defaultPosition = 'center';
 var defaultFontSize = 'medium';
@@ -130,4 +132,48 @@ function setMemeTextHeight(memeText) {
     memeSizeBtn.addEventListener('mouseout', function (e) {
         memeOptionSelected = false;
     });
+});
+
+memeDownloadBtn.addEventListener('click', function () {
+
+/*    html2canvas(document.body, {
+        onrendered: function(canvas) {
+            document.body.appendChild(canvas);
+        }
+    });*/
+
+    function onImgLoad(image) {
+        var c = document.createElement('canvas');
+        var iframeBounds = image.getBoundingClientRect();
+        c.width = iframeBounds.width;
+        c.height = iframeBounds.height;
+        var ctx = c.getContext('2d');
+        ctx.drawImage(
+            image,
+            iframeBounds.left,
+            iframeBounds.top,
+            iframeBounds.width,
+            iframeBounds.height,
+            0,
+            0,
+            iframeBounds.width,
+            iframeBounds.height
+        );
+        image.removeEventListener('load', onImgLoad);
+        document.body.appendChild(c);
+    }
+
+    chrome.tabs.captureVisibleTab(
+        null,
+        {format: 'png', quality: 100},
+        function (dataURI) {
+            if (dataURI) {
+                var image = new Image();
+                image.src = dataURI;
+                image.addEventListener('load', function () {
+                    onImgLoad(image, dataURI)
+                });
+            }
+        }
+    );
 });
