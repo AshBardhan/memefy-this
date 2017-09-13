@@ -11,12 +11,28 @@
   },
   "default_locale": "en",
   "background": {
-    "page": "src/bg/background.html",
-    "persistent": true
+    "scripts" : [
+      "src/bg/background.js"
+    ],
+    "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "css": [
+        "src/inject/inject.css"
+      ],
+      "js": [
+        "src/inject/inject.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "contextMenus"
+  ],
   "browser_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser action demo",
-    "default_popup": "src/browser_action/popup.html"
+    "default_title": "browser action demo"
   }
 }

@@ -1,13 +1,46 @@
-// if you checked "fancy-settings" in extensionizr.com, uncomment this lines
+// Copyright (c) 2010 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-// var settings = new Store("settings", {
-//     "sample_setting": "This is how you use Store.js to remember values"
-// });
+// A generic onclick callback function.
+function genericOnClick(info, tab) {
+    console.log("item " + info.menuItemId + " was clicked");
+    console.log("info: " + JSON.stringify(info));
+    console.log("tab: " + JSON.stringify(tab));
+}
 
+chrome.contextMenus.create({
+    id: "myContextMenu",   // <-- mandatory with event-pages
+    title: "Memefy this",
+    contexts: ["image"]
+});
 
-//example of using a message handler from the inject scripts
-chrome.extension.onMessage.addListener(
-  function(request, sender, sendResponse) {
-  	chrome.pageAction.show(sender.tab.id);
-    sendResponse();
-  });
+/* Register a listener for the `onClicked` event */
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (tab) {
+        console.log(info);
+        console.log(tab);
+        /* Create the code to be injected */
+        var code = [
+            'var d = document.createElement("div");',
+            'd.setAttribute("style", "'
+            + 'background-color: red; '
+            + 'width: 100px; '
+            + 'height: 100px; '
+            + 'position: fixed; '
+            + 'top: 70px; '
+            + 'left: 30px; '
+            + 'z-index: 9999; '
+            + '");',
+            'document.body.appendChild(d);'
+        ].join("\n");
+
+        /* Inject the code into the current tab */
+        //chrome.tabs.executeScript(tab.id, { code: code });
+
+        chrome.tabs.sendMessage(tab.id, { text: "report_back" }, function(response) {
+            console.log(response);
+        });
+
+    }
+});
