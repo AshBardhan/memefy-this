@@ -140,17 +140,21 @@
 }
 
 .download-meme {
-    display: inline-block;
-    padding: 8px 14px;
-    border-radius: 4px;
-    color: #ffffff;
-    background: #2a9eea;
-    font-size: 12px;
-    margin: 10px 0;
+    position: absolute;
+    right: -25px;
+    top: 5px;
+    padding: 5px;
+    background: red;
+    text-align: center;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
-.download-meme:hover {
-    background: #02b0ea;
+.download-meme svg {
+    width: 12px;
+    height: 12px;
+    fill: rgba(255,255,255, 0.85);
+}
+
+.download-meme:hover svg {
+    fill: rgba(255,255,255, 1);
 }

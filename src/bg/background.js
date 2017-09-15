@@ -18,29 +18,28 @@ chrome.contextMenus.create({
 /* Register a listener for the `onClicked` event */
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     if (tab) {
-        console.log(info);
-        console.log(tab);
-        /* Create the code to be injected */
-        var code = [
-            'var d = document.createElement("div");',
-            'd.setAttribute("style", "'
-            + 'background-color: red; '
-            + 'width: 100px; '
-            + 'height: 100px; '
-            + 'position: fixed; '
-            + 'top: 70px; '
-            + 'left: 30px; '
-            + 'z-index: 9999; '
-            + '");',
-            'document.body.appendChild(d);'
-        ].join("\n");
-
-        /* Inject the code into the current tab */
-        //chrome.tabs.executeScript(tab.id, { code: code });
-
         chrome.tabs.sendMessage(tab.id, { text: "report_back" }, function(response) {
             console.log(response);
         });
 
     }
+});
+
+chrome.runtime.onMessage.addListener(function (msg) {
+    console.log(msg.msg);
+
+    chrome.tabs.captureVisibleTab(
+        null,
+        {format: 'png', quality: 100},
+        function (dataURI) {
+            if (dataURI) {
+                var image = new Image();
+                image.src = dataURI;
+                image.addEventListener('load', function () {
+                    //onImgLoad(image, dataURI)
+                    console.log('making image');
+                });
+            }
+        }
+    );
 });

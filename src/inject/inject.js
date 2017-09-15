@@ -81,6 +81,7 @@ function setMemeBoxContent(memeBox) {
 	var memeOptionsBox = memeBox.querySelector('.js-meme-options');
 	var memePosBtns = memeBox.querySelectorAll('.js-pos-btn');
 	var memeSizeBtns = memeBox.querySelectorAll('.js-size-btn');
+	var memeDownloadBtn = memeBox.querySelector('.js-download-meme');
 
 	[].forEach.call(memeTexts, function (memeText) {
 		memeText.setAttribute('data-pos', defaultPosition);
@@ -148,6 +149,49 @@ function setMemeBoxContent(memeBox) {
 			memeOptionSelected = false;
 		});
 	});
+
+	memeDownloadBtn.addEventListener('click', function () {
+
+
+		chrome.runtime.sendMessage({msg: 'love charger'}, function (response) {
+			console.log('done');
+		});
+
+		/*function onImgLoad(image) {
+			var c = document.createElement('canvas');
+			var iframeBounds = memeBox.getBoundingClientRect();
+			c.width = iframeBounds.width;
+			c.height = iframeBounds.height;
+			var ctx = c.getContext('2d');
+			ctx.drawImage(
+				image,
+				iframeBounds.left,
+				iframeBounds.top,
+				iframeBounds.width,
+				iframeBounds.height,
+				0,
+				0,
+				iframeBounds.width,
+				iframeBounds.height
+			);
+			image.removeEventListener('load', onImgLoad);
+			document.body.appendChild(c);
+		}
+
+		chrome.tabs.captureVisibleTab(
+			null,
+			{format: 'png', quality: 100},
+			function (dataURI) {
+				if (dataURI) {
+					var image = new Image();
+					image.src = dataURI;
+					image.addEventListener('load', function () {
+						onImgLoad(image, dataURI)
+					});
+				}
+			}
+		);*/
+	});
 }
 
 function makeMemeBox(){
@@ -177,6 +221,13 @@ function makeMemeBox(){
 			'<div class="btn js-size-btn" data-size="medium">M</div>' +
 			'<div class="btn js-size-btn" data-size="large">L</div>' +
 			'<div class="btn js-size-btn" data-size="xlarge">XL</div>' +
+		'</div>' +
+		'<div class="js-download-meme download-meme">' +
+			'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 433.5 433.5" style="enable-background:new 0 0 433.5 433.5;" xml:space="preserve">' +
+				'<g id="file-download">' +
+					'<path d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z"/>' +
+				'</g>' +
+			'</svg>' +
 		'</div>';
 
 	document.body.appendChild(memeBox);
