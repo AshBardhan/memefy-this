@@ -105,7 +105,7 @@
     font-size: 60px;
 }
 
-#meme-options {
+#meme-text-options {
     position: absolute;
     width: 280px;
     text-align: center;
@@ -117,7 +117,7 @@
     display: none;
 }
 
-#meme-options:before {
+#meme-text-options:before {
     content: '';
     position: absolute;
     left: 50%;
@@ -126,12 +126,12 @@
     border-right: 10px solid transparent;
 }
 
-#meme-options[type='top']:before {
+#meme-text-options[type='top']:before {
     top: -10px;
     border-bottom: 10px solid #fff;
 }
 
-#meme-options[type='bottom']:before {
+#meme-text-options[type='bottom']:before {
     bottom: -10px;
     border-top: 10px solid #fff;
 }
@@ -155,7 +155,7 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
-.meme-box-options {
+#meme-box-options {
     position: absolute;
     right: -25px;
     top: 50%;
@@ -163,7 +163,7 @@
     transform: translateY(-50%);
 }
 
-.meme-box-options li {
+#meme-box-options li {
     padding: 5px;
     background: red;
     text-align: center;
@@ -173,12 +173,12 @@
     width: 22px;
 }
 
-.meme-box-options li svg {
+#meme-box-options li svg {
     width: 12px;
     height: 12px;
     fill: rgba(255, 255, 255, 0.85);
 }
 
-.meme-box-options li:hover svg {
+#meme-box-options li:hover svg {
     fill: rgba(255, 255, 255, 1);
 }

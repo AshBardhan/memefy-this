@@ -13,9 +13,9 @@ document.addEventListener("mousedown", function(event){
 var defaultPosition = 'center';
 var defaultFontSize = 'medium';
 var selectedTextType, selectedText;
-var memeOptionSelected = false;
+var memeTextOptionSelected = false;
 
-var memeOptions = {
+var memeTextOptions = {
 	'top': {
 		'size': defaultFontSize,
 		'pos': defaultPosition,
@@ -28,8 +28,8 @@ var memeOptions = {
 	}
 };
 
-function setMemeOptionsBoxPosition(memeOptionsBox) {
-	memeOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeOptionsBox.offsetHeight - 10: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
+function setMemeTextOptionsBoxPosition(memeTextOptionsBox) {
+	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 10: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 }
 
 
@@ -53,43 +53,43 @@ function setMemeTextHeight(memeText) {
 	adjustHeight(memeText, memeText.minHeight);
 }
 
-function showMemeOptionsBox(memeOptionsBox) {
-	memeOptionsBox.style.display = 'block';
-	memeOptionsBox.setAttribute('type', selectedTextType);
+function showMemeTextOptionsBox(memeTextOptionsBox) {
+	memeTextOptionsBox.style.display = 'block';
+	memeTextOptionsBox.setAttribute('type', selectedTextType);
 }
 
-function hideMemeOptionsBox(memeOptionsBox) {
-	memeOptionsBox.style.display = 'none';
+function hideMemeTextOptionsBox(memeTextOptionsBox) {
+	memeTextOptionsBox.style.display = 'none';
 }
 
-function setMemeOptionsBox(optionType, memeOptionsBox) {
-	var memeGroupOptions = memeOptionsBox.querySelectorAll('[data-' + optionType + ']');
+function setMemeTextOptionsBox(optionType, memeTextOptionsBox) {
+	var memeGroupOptions = memeTextOptionsBox.querySelectorAll('[data-' + optionType + ']');
 	[].forEach.call(memeGroupOptions, function (memeGroupOption) {
 		memeGroupOption.classList.remove('selected');
-		if (memeGroupOption.getAttribute('data-' + optionType) === memeOptions[selectedTextType][optionType]) {
+		if (memeGroupOption.getAttribute('data-' + optionType) === memeTextOptions[selectedTextType][optionType]) {
 			memeGroupOption.classList.add('selected');
 		}
 	});
 }
 
-function setMemeBoxOption(memeOptionsBox) {
+function setMemeBoxOption(memeTextOptionsBox) {
 	['size', 'pos'].forEach(function (optionType) {
-		setMemeOptionsBox(optionType, memeOptionsBox);
+		setMemeTextOptionsBox(optionType, memeTextOptionsBox);
 	});
 }
 
 function resetMemeTextOptions(memeText) {
 	var textType = memeText.getAttribute('data-type');
-	memeText.value = memeOptions[textType]['defaultText'];
-	memeOptions[textType]['size'] = defaultFontSize;
-	memeOptions[textType]['pos'] = defaultPosition;
-	memeText.setAttribute('data-pos', memeOptions[textType]['pos']);
-	memeText.setAttribute('data-size', memeOptions[textType]['size']);
+	memeText.value = memeTextOptions[textType]['defaultText'];
+	memeTextOptions[textType]['size'] = defaultFontSize;
+	memeTextOptions[textType]['pos'] = defaultPosition;
+	memeText.setAttribute('data-pos', memeTextOptions[textType]['pos']);
+	memeText.setAttribute('data-size', memeTextOptions[textType]['size']);
 }
 
 function setMemeBoxContent(memeBox) {
 	var memeTexts = memeBox.querySelectorAll('.js-meme-text');
-	var memeOptionsBox = memeBox.querySelector('.js-meme-options');
+	var memeTextOptionsBox = memeBox.querySelector('.js-meme-text-options');
 	var memePosBtns = memeBox.querySelectorAll('.js-pos-btn');
 	var memeSizeBtns = memeBox.querySelectorAll('.js-size-btn');
 	var memeDownloadBtn = memeBox.querySelector('.js-download-meme');
@@ -103,7 +103,7 @@ function setMemeBoxContent(memeBox) {
 
 		memeText.addEventListener('input', function () {
 			adjustHeight(this, this.minHeight);
-			setMemeOptionsBoxPosition(memeOptionsBox);
+			setMemeTextOptionsBoxPosition(memeTextOptionsBox);
 		});
 
 		memeText.addEventListener('focus', function () {
@@ -111,54 +111,54 @@ function setMemeBoxContent(memeBox) {
 			memeText.classList.add('selected');
 			selectedTextType = type;
 			selectedText = memeText;
-			setMemeBoxOption(memeOptionsBox);
-			showMemeOptionsBox(memeOptionsBox);
-			setMemeOptionsBoxPosition(memeOptionsBox);
+			setMemeBoxOption(memeTextOptionsBox);
+			showMemeTextOptionsBox(memeTextOptionsBox);
+			setMemeTextOptionsBoxPosition(memeTextOptionsBox);
 		});
 
 		memeText.addEventListener('blur', function (e) {
-			if(!memeOptionSelected) {
+			if(!memeTextOptionSelected) {
 				memeText.classList.remove('selected');
-				hideMemeOptionsBox(memeOptionsBox);
+				hideMemeTextOptionsBox(memeTextOptionsBox);
 			}
 		});
 	});
 
 	[].forEach.call(memePosBtns, function (memePosBtn) {
 		memePosBtn.addEventListener('mousedown', function () {
-			memeOptionSelected = true;
+			memeTextOptionSelected = true;
 			var position = this.getAttribute('data-pos');
 			console.log(position);
 			selectedText.setAttribute('data-pos', position);
-			memeOptions[selectedTextType]['pos'] = position;
-			setMemeOptionsBox('pos', memeOptionsBox);
+			memeTextOptions[selectedTextType]['pos'] = position;
+			setMemeTextOptionsBox('pos', memeTextOptionsBox);
 			setTimeout(function () {
 				selectedText.focus();
 			}, 0);
 		});
 
 		memePosBtn.addEventListener('mouseout', function (e) {
-			memeOptionSelected = false;
+			memeTextOptionSelected = false;
 		});
 	});
 
 	[].forEach.call(memeSizeBtns, function (memeSizeBtn) {
 		memeSizeBtn.addEventListener('mousedown', function () {
-			memeOptionSelected = true;
+			memeTextOptionSelected = true;
 			var fontSize = this.getAttribute('data-size');
 			console.log(fontSize);
 			selectedText.setAttribute('data-size', fontSize);
-			memeOptions[selectedTextType]['size'] = fontSize;
-			setMemeOptionsBox('size', memeOptionsBox);
+			memeTextOptions[selectedTextType]['size'] = fontSize;
+			setMemeTextOptionsBox('size', memeTextOptionsBox);
 			setMemeTextHeight(selectedText);
-			setMemeOptionsBoxPosition(memeOptionsBox);
+			setMemeTextOptionsBoxPosition(memeTextOptionsBox);
 			setTimeout(function () {
 				selectedText.focus();
 			}, 0);
 		});
 
 		memeSizeBtn.addEventListener('mouseout', function (e) {
-			memeOptionSelected = false;
+			memeTextOptionSelected = false;
 		});
 	});
 
@@ -236,7 +236,7 @@ function makeMemeBox(){
 	memeBox.innerHTML =
 		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text js-meme-text" tabindex="-1" data-type="top"></textarea> ' +
 		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text  js-meme-text" tabindex="-1" data-type="bottom"></textarea>' +
-		'<div id="meme-options" class="js-meme-options">' +
+		'<div id="meme-text-options" class="js-meme-text-options">' +
 			'<div class="btn js-pos-btn" data-pos="left">L</div>' +
 			'<div class="btn js-pos-btn" data-pos="center">C</div>' +
 			'<div class="btn js-pos-btn" data-pos="right">R</div>' +
@@ -246,7 +246,7 @@ function makeMemeBox(){
 			'<div class="btn js-size-btn" data-size="large">L</div>' +
 			'<div class="btn js-size-btn" data-size="xlarge">XL</div>' +
 		'</div>' +
-		'<ul class="meme-box-options">'+
+		'<ul id="meme-box-options">'+
 			'<li class="js-cancel-meme cancel-meme">' +
 				'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 47.971 47.971" style="enable-background:new 0 0 47.971 47.971;" xml:space="preserve" width="512px" height="512px">' +
 					'<g id="icon-cancel">' +
