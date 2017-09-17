@@ -203,8 +203,8 @@ function setMemeBoxContent(memeBox) {
 function makeMemeBox(){
 	var bodyRect = document.body.getBoundingClientRect(),
 		clickedElRect = clickedEl.getBoundingClientRect(),
-		clickedElWidth = clickedElRect.width,
-		clickedElHeight = clickedElRect.height,
+		clickedElWidth = clickedEl.width,
+		clickedElHeight = clickedEl.height,
 		clickedElOffsetTop   = clickedElRect.top - bodyRect.top,
 		clickedElOffsetLeft   = clickedElRect.left - bodyRect.left;
 

@@ -42,7 +42,7 @@
     resize: none;
     overflow: hidden;
     padding: 0 5px;
-    font-family: Impact;
+    font-family: Impact !important;
     line-height: 1.2;
     text-transform: uppercase;
     color: white;
