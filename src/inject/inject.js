@@ -78,9 +78,11 @@ function setMemeBoxOption(memeOptionsBox) {
 	});
 }
 
-function setMemeTextOptions(memeText) {
+function resetMemeTextOptions(memeText) {
 	var textType = memeText.getAttribute('data-type');
 	memeText.value = memeOptions[textType]['defaultText'];
+	memeOptions[textType]['size'] = defaultFontSize;
+	memeOptions[textType]['pos'] = defaultPosition;
 	memeText.setAttribute('data-pos', memeOptions[textType]['pos']);
 	memeText.setAttribute('data-size', memeOptions[textType]['size']);
 }
@@ -92,10 +94,11 @@ function setMemeBoxContent(memeBox) {
 	var memeSizeBtns = memeBox.querySelectorAll('.js-size-btn');
 	var memeDownloadBtn = memeBox.querySelector('.js-download-meme');
 	var memeCancelBtn = memeBox.querySelector('.js-cancel-meme');
+	var memeRefreshBtn = memeBox.querySelector('.js-refresh-meme');
 	var memeBoxOverlay = document.querySelector('.js-meme-box-overlay');
 
 	[].forEach.call(memeTexts, function (memeText) {
-		setMemeTextOptions(memeText);
+		resetMemeTextOptions(memeText);
 		setMemeTextHeight(memeText);
 
 		memeText.addEventListener('input', function () {
@@ -205,6 +208,13 @@ function setMemeBoxContent(memeBox) {
 			}
 		);*/
 	});
+
+	memeRefreshBtn.addEventListener('click', function () {
+		[].forEach.call(memeTexts, function (memeText) {
+			resetMemeTextOptions(memeText);
+			setMemeTextHeight(memeText);
+		});
+	});
 }
 
 function makeMemeBox(){
@@ -247,6 +257,13 @@ function makeMemeBox(){
 			'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 47.971 47.971" style="enable-background:new 0 0 47.971 47.971;" xml:space="preserve" width="512px" height="512px">' +
 				'<g id="icon-cancel">' +
 					'<path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88   c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242   C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879   s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/>' +
+				'</g>' +
+			'</svg>' +
+		'</div>' +
+		'<div class="js-refresh-meme refresh-meme">' +
+			'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 408 408" style="enable-background:new 0 0 408 408;" xml:space="preserve">' +
+				'<g id="icon-refresh">' +
+					'<path d="M346.8,61.2C311.1,22.95,260.1,0,204,0C91.8,0,0,91.8,0,204s91.8,204,204,204c94.35,0,173.4-66.3,196.35-153H346.8    C326.4,313.65,270.3,357,204,357c-84.15,0-153-68.85-153-153c0-84.15,68.85-153,153-153c43.35,0,79.05,17.85,107.1,45.9    l-81.6,81.6H408V0L346.8,61.2z"/>' +
 				'</g>' +
 			'</svg>' +
 		'</div>';

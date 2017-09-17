@@ -155,7 +155,7 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
-.cancel-meme, .download-meme {
+.cancel-meme, .download-meme, .refresh-meme {
     position: absolute;
     right: -25px;
     top: 5px;
@@ -169,12 +169,16 @@
     top: 35px;
 }
 
-.cancel-meme svg, .download-meme svg {
+.refresh-meme {
+    top: 65px;
+}
+
+.cancel-meme svg, .download-meme svg, .refresh-meme svg {
     width: 12px;
     height: 12px;
     fill: rgba(255, 255, 255, 0.85);
 }
 
-.cancel-meme:hover svg, .download-meme:hover svg {
+.cancel-meme:hover svg, .download-meme:hover svg, .refresh-meme:hover svg {
     fill: rgba(255, 255, 255, 1);
 }
