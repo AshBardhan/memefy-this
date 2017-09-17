@@ -18,11 +18,13 @@ var memeOptionSelected = false;
 var memeOptions = {
 	'top': {
 		'size': defaultFontSize,
-		'pos': defaultPosition
+		'pos': defaultPosition,
+		'defaultText': 'Top Text'
 	},
 	'bottom': {
 		'size': defaultFontSize,
-		'pos': defaultPosition
+		'pos': defaultPosition,
+		'defaultText': 'Bottom Text'
 	}
 };
 
@@ -76,6 +78,13 @@ function setMemeBoxOption(memeOptionsBox) {
 	});
 }
 
+function setMemeTextOptions(memeText) {
+	var textType = memeText.getAttribute('data-type');
+	memeText.value = memeOptions[textType]['defaultText'];
+	memeText.setAttribute('data-pos', memeOptions[textType]['pos']);
+	memeText.setAttribute('data-size', memeOptions[textType]['size']);
+}
+
 function setMemeBoxContent(memeBox) {
 	var memeTexts = memeBox.querySelectorAll('.js-meme-text');
 	var memeOptionsBox = memeBox.querySelector('.js-meme-options');
@@ -86,9 +95,7 @@ function setMemeBoxContent(memeBox) {
 	var memeBoxOverlay = document.querySelector('.js-meme-box-overlay');
 
 	[].forEach.call(memeTexts, function (memeText) {
-		memeText.setAttribute('data-pos', defaultPosition);
-		memeText.setAttribute('data-size', defaultFontSize);
-
+		setMemeTextOptions(memeText);
 		setMemeTextHeight(memeText);
 
 		memeText.addEventListener('input', function () {
@@ -217,8 +224,8 @@ function makeMemeBox(){
 	memeBox.style.left = clickedElOffsetLeft + 'px';*/
 
 	memeBox.innerHTML =
-		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text js-meme-text" tabindex="-1" data-type="top">Top Text</textarea> ' +
-		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text  js-meme-text" tabindex="-1" data-type="bottom">Bottom Text</textarea>' +
+		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text js-meme-text" tabindex="-1" data-type="top"></textarea> ' +
+		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text  js-meme-text" tabindex="-1" data-type="bottom"></textarea>' +
 		'<div id="meme-options" class="js-meme-options">' +
 			'<div class="btn js-pos-btn" data-pos="left">L</div>' +
 			'<div class="btn js-pos-btn" data-pos="center">C</div>' +
