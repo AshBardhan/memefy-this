@@ -82,6 +82,8 @@ function setMemeBoxContent(memeBox) {
 	var memePosBtns = memeBox.querySelectorAll('.js-pos-btn');
 	var memeSizeBtns = memeBox.querySelectorAll('.js-size-btn');
 	var memeDownloadBtn = memeBox.querySelector('.js-download-meme');
+	var memeCancelBtn = memeBox.querySelector('.js-cancel-meme');
+	var memeBoxOverlay = document.querySelector('.js-meme-box-overlay');
 
 	[].forEach.call(memeTexts, function (memeText) {
 		memeText.setAttribute('data-pos', defaultPosition);
@@ -150,8 +152,12 @@ function setMemeBoxContent(memeBox) {
 		});
 	});
 
-	memeDownloadBtn.addEventListener('click', function () {
+	memeCancelBtn.addEventListener('click', function () {
+		memeBoxOverlay.parentNode.removeChild(memeBoxOverlay);
+		memeBox.parentNode.removeChild(memeBox);
+	});
 
+	memeDownloadBtn.addEventListener('click', function () {
 
 		chrome.runtime.sendMessage({msg: 'love charger'}, function (response) {
 			console.log('done');
@@ -206,8 +212,9 @@ function makeMemeBox(){
 	memeBox.classList.add('js-meme-box','meme');
 	memeBox.style.width = clickedElWidth + 'px';
 	memeBox.style.height = clickedElHeight + 'px';
-	memeBox.style.top = clickedElOffsetTop + 'px';
-	memeBox.style.left = clickedElOffsetLeft + 'px';
+	memeBox.style.backgroundImage = 'url("' + clickedEl.src + '")';
+	/*memeBox.style.top = clickedElOffsetTop + 'px';
+	memeBox.style.left = clickedElOffsetLeft + 'px';*/
 
 	memeBox.innerHTML =
 		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="meme-text js-meme-text" tabindex="-1" data-type="top">Top Text</textarea> ' +
@@ -224,13 +231,24 @@ function makeMemeBox(){
 		'</div>' +
 		'<div class="js-download-meme download-meme">' +
 			'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 433.5 433.5" style="enable-background:new 0 0 433.5 433.5;" xml:space="preserve">' +
-				'<g id="file-download">' +
+				'<g id="icon-download">' +
 					'<path d="M395.25,153h-102V0h-153v153h-102l178.5,178.5L395.25,153z M38.25,382.5v51h357v-51H38.25z"/>' +
+				'</g>' +
+			'</svg>' +
+		'</div>' +
+		'<div class="js-cancel-meme cancel-meme">' +
+			'<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 47.971 47.971" style="enable-background:new 0 0 47.971 47.971;" xml:space="preserve" width="512px" height="512px">' +
+				'<g id="icon-cancel">' +
+					'<path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88   c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242   C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879   s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/>' +
 				'</g>' +
 			'</svg>' +
 		'</div>';
 
 	document.body.appendChild(memeBox);
+
+	var memeBoxOverlay = document.createElement('div');
+	memeBoxOverlay.classList.add('js-meme-box-overlay', 'meme-box-overlay');
+	document.body.appendChild(memeBoxOverlay);
 
 	setMemeBoxContent(memeBox);
 }
