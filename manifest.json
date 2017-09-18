@@ -28,8 +28,11 @@
     }
   ],
   "permissions": [
-    "activeTab",
-    "contextMenus"
+    "tabs",
+    "<all_urls>",
+    "contextMenus",
+    "tabCapture",
+    "downloads"
   ],
   "browser_action": {
     "default_icon": "icons/icon19.png",

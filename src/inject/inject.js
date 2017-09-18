@@ -167,46 +167,93 @@ function setMemeBoxContent(memeBox) {
 		memeBox.parentNode.removeChild(memeBox);
 	});
 
-	memeDownloadBtn.addEventListener('click', function () {
+	function saveScreenshot() {
+		var fileName = [
+			'meme',
+			d.getFullYear(),
+			d.getMonth() + 1,
+			d.getDate(),
+			d.getHours(),
+			d.getMinutes(),
+			d.getSeconds()
+		].join('-') +'.png';
 
-		chrome.runtime.sendMessage({msg: 'love charger'}, function (response) {
-			console.log('done');
-		});
+		var filePath =
+			'filesystem:chrome-extension://' +
+			chrome.i18n.getMessage('@@extension_id') +
+			'/temporary/' +
+			fileName;
 
-		/*function onImgLoad(image) {
-			var c = document.createElement('canvas');
-			var iframeBounds = memeBox.getBoundingClientRect();
-			c.width = iframeBounds.width;
-			c.height = iframeBounds.height;
-			var ctx = c.getContext('2d');
-			ctx.drawImage(
-				image,
-				iframeBounds.left,
-				iframeBounds.top,
-				iframeBounds.width,
-				iframeBounds.height,
-				0,
-				0,
-				iframeBounds.width,
-				iframeBounds.height
-			);
-			image.removeEventListener('load', onImgLoad);
-			document.body.appendChild(c);
-		}
-
-		chrome.tabs.captureVisibleTab(
-			null,
-			{format: 'png', quality: 100},
-			function (dataURI) {
-				if (dataURI) {
-					var image = new Image();
-					image.src = dataURI;
-					image.addEventListener('load', function () {
-						onImgLoad(image, dataURI)
-					});
+		chrome.downloads.download(
+			{
+				url: filePath
+			},
+			function() {
+				// If there was an error, just open the screenshot in a tab.
+				// This happens in incognito mode where extension cannot access filesystem.
+				if (chrome.runtime.lastError) {
+					window.open(filePath);
 				}
 			}
-		);*/
+		);
+	}
+
+	function onImgLoad(image) {
+		var c = document.createElement('canvas');
+		var iframeBounds = memeBox.getBoundingClientRect();
+		c.width = iframeBounds.width;
+		c.height = iframeBounds.height;
+		c.style.display = 'none';
+
+		var imageWindowsRatio = {};
+		imageWindowsRatio.x = image.width / window.innerWidth;
+		imageWindowsRatio.y = image.height / window.innerHeight;
+
+		var ctx = c.getContext('2d');
+		ctx.drawImage(
+			image,
+			iframeBounds.left * imageWindowsRatio.x,
+			iframeBounds.top * imageWindowsRatio.y,
+			iframeBounds.width * imageWindowsRatio.x,
+			iframeBounds.height * imageWindowsRatio.y,
+			0,
+			0,
+			iframeBounds.width,
+			iframeBounds.height
+		);
+		image.removeEventListener('load', onImgLoad);
+
+		var d = new Date();
+		var fileName = [
+				'meme',
+				d.getFullYear(),
+				d.getMonth() + 1,
+				d.getDate(),
+				d.getHours(),
+				d.getMinutes(),
+				d.getSeconds()
+			].join('-') + '.png';
+
+		var link = document.createElement('a');
+		link.href = c.toDataURL();
+		link.download = fileName;
+		document.body.appendChild(link);
+		link.click();
+		link.parentNode.removeChild(link);
+	}
+
+	memeDownloadBtn.addEventListener('click', function () {
+		chrome.runtime.sendMessage({msg: 'download_meme'}, function (response) {
+			console.log(response);
+			if (response && response.imgSrc) {
+				var image = new Image();
+				image.src = response.imgSrc;
+				image.addEventListener('load', function () {
+					onImgLoad(image);
+					console.log('making image');
+				});
+			}
+		});
 	});
 
 	memeRefreshBtn.addEventListener('click', function () {
@@ -279,9 +326,9 @@ function makeMemeBox(){
 	setMemeBoxContent(memeBox);
 }
 
-chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 	/* If the received message has the expected format... */
-	if (msg.text && (msg.text == "report_back")) {
+	if (request.text && (request.text == "report_back")) {
 
 		clickedEl.setAttribute('text','invaded');
 

@@ -25,21 +25,16 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     }
 });
 
-chrome.runtime.onMessage.addListener(function (msg) {
-    console.log(msg.msg);
-
-    chrome.tabs.captureVisibleTab(
-        null,
-        {format: 'png', quality: 100},
-        function (dataURI) {
-            if (dataURI) {
-                var image = new Image();
-                image.src = dataURI;
-                image.addEventListener('load', function () {
-                    //onImgLoad(image, dataURI)
-                    console.log('making image');
-                });
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if(request.msg && request.msg === 'download_meme') {
+        console.log(request.msg);
+        chrome.tabs.captureVisibleTab(
+            null,
+            {format: 'png', quality: 100},
+            function (dataURL) {
+                sendResponse({imgSrc: dataURL});
             }
-        }
-    );
+        );
+        return true;
+    }
 });
