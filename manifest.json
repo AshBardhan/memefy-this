@@ -12,7 +12,7 @@
   "default_locale": "en",
   "background": {
     "scripts" : [
-      "src/bg/background.js"
+      "src/background/main.js"
     ],
     "persistent": false
   },
@@ -20,10 +20,10 @@
     {
       "matches": ["https://*/*"],
       "css": [
-        "src/inject/inject.css"
+        "src/content_scripts/inject.css"
       ],
       "js": [
-        "src/inject/inject.js"
+        "src/content_scripts/inject.js"
       ]
     }
   ],

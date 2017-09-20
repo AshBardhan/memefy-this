@@ -1,8 +1,3 @@
-// Copyright (c) 2010 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// A generic onclick callback function.
 function genericOnClick(info, tab) {
     console.log("item " + info.menuItemId + " was clicked");
     console.log("info: " + JSON.stringify(info));
@@ -10,15 +5,14 @@ function genericOnClick(info, tab) {
 }
 
 chrome.contextMenus.create({
-    id: "myContextMenu",   // <-- mandatory with event-pages
+    id: "myContextMenu",
     title: "Memefy this",
     contexts: ["image"]
 });
 
-/* Register a listener for the `onClicked` event */
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     if (tab) {
-        chrome.tabs.sendMessage(tab.id, { text: "report_back" }, function(response) {
+        chrome.tabs.sendMessage(tab.id, { text: "make_meme" }, function(response) {
             console.log(response);
         });
 

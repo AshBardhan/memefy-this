@@ -327,15 +327,9 @@ function makeMemeBox(){
 }
 
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-	/* If the received message has the expected format... */
-	if (request.text && (request.text == "report_back")) {
-
+	if (request.text && (request.text == "make_meme")) {
 		clickedEl.setAttribute('text','invaded');
-
 		makeMemeBox();
-
-		/* Call the specified callback, passing
-		 the web-pages DOM content as argument */
 		sendResponse({ele: clickedEl.innerHTML});
 		return true;
 	}
