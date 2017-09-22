@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-.meme-box-overlay {
+._memefy_meme-box-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -16,14 +16,7 @@
     background: rgba(0, 0, 0, 0.62);
 }
 
-#meme-wrapper {
-    border: 1px solid #000000;
-    padding: 5px;
-    position: relative;
-    text-align: center;
-}
-
-.meme {
+._memefy_meme-box {
     position: fixed;
     box-shadow: 0 0 0 5px red;
     z-index: 1001;
@@ -34,17 +27,21 @@
     background-color: #fff;
 }
 
-.meme-text {
+._memefy_meme-box > *:not([class^="_memefy_"]):not([id^="_memefy_"]){
+    display: none;
+}
+
+._memefy_meme-text {
     position: absolute;
     left: 0;
     right: 0;
     width: 100%;
-    resize: none;
-    overflow: hidden;
+    resize: none !important;
+    overflow: hidden !important;
     padding: 0 5px;
     font-family: Impact !important;
-    line-height: 1.2;
-    text-transform: uppercase;
+    line-height: 1.2 !important;
+    text-transform: uppercase !important;
     color: white;
     background: transparent;
     outline: 0;
@@ -61,51 +58,51 @@
     2px 2px 5px #000;
 }
 
-.meme-text.selected {
-    background: rgba(0, 0, 0, 0.35);
+._memefy_meme-text.selected {
+    background: rgba(0, 0, 0, 0.35) !important;
 }
 
-.meme-text[data-type=bottom] {
+._memefy_meme-text[data-type=bottom] {
     bottom: 5px;
 }
 
-.meme-text[data-type=top] {
+._memefy_meme-text[data-type=top] {
     top: 5px;
 }
 
-.meme-text[data-pos=left] {
-    text-align: left;
+._memefy_meme-text[data-pos=left] {
+    text-align: left !important;
 }
 
-.meme-text[data-pos=right] {
-    text-align: right;
+._memefy_meme-text[data-pos=right] {
+    text-align: right !important;
 }
 
-.meme-text[data-pos=center] {
-    text-align: center;
+._memefy_meme-text[data-pos=center] {
+    text-align: center !important;
 }
 
-.meme-text[data-size=xsmall] {
-    font-size: 20px;
+._memefy_meme-text[data-size=xsmall] {
+    font-size: 20px !important;
 }
 
-.meme-text[data-size=small] {
-    font-size: 30px;
+._memefy_meme-text[data-size=small] {
+    font-size: 30px !important;
 }
 
-.meme-text[data-size=medium] {
-    font-size: 40px;
+._memefy_meme-text[data-size=medium] {
+    font-size: 40px !important;
 }
 
-.meme-text[data-size=large] {
-    font-size: 50px;
+._memefy_meme-text[data-size=large] {
+    font-size: 50px !important;
 }
 
-.meme-text[data-size=xlarge] {
-    font-size: 60px;
+._memefy_meme-text[data-size=xlarge] {
+    font-size: 60px !important;
 }
 
-#meme-text-options {
+#_memefy_meme-text-options {
     position: absolute;
     width: 280px;
     text-align: center;
@@ -117,7 +114,7 @@
     display: none;
 }
 
-#meme-text-options:before {
+#_memefy_meme-text-options:before {
     content: '';
     position: absolute;
     left: 50%;
@@ -126,17 +123,17 @@
     border-right: 10px solid transparent;
 }
 
-#meme-text-options[type='top']:before {
+#_memefy_meme-text-options[type='top']:before {
     top: -10px;
     border-bottom: 10px solid #fff;
 }
 
-#meme-text-options[type='bottom']:before {
+#_memefy_meme-text-options[type='bottom']:before {
     bottom: -10px;
     border-top: 10px solid #fff;
 }
 
-.btn {
+._memefy_btn {
     display: inline-block;
     margin: 0 2px;
     cursor: pointer;
@@ -147,23 +144,26 @@
     line-height: 26px;
 }
 
-.btn:hover {
+._memefy_btn:hover {
     background: rgba(0, 0, 0, 0.15);
 }
 
-.btn.selected {
+._memefy_btn.selected {
     background: rgba(0, 0, 0, 0.3);
 }
 
-#meme-box-options {
+#_memefy_meme-box-options {
     position: absolute;
     right: -25px;
     top: 50%;
     list-style: none;
+    margin: 0;
+    padding: 0;
     transform: translateY(-50%);
 }
 
-#meme-box-options li {
+#_memefy_meme-box-options li {
+    display: flex;
     padding: 5px;
     background: red;
     text-align: center;
@@ -173,12 +173,12 @@
     width: 22px;
 }
 
-#meme-box-options li svg {
-    width: 12px;
-    height: 12px;
+#_memefy_meme-box-options li svg {
+    width: 12px !important;
+    height: 12px !important;
     fill: rgba(255, 255, 255, 0.85);
 }
 
-#meme-box-options li:hover svg {
+#_memefy_meme-box-options li:hover svg {
     fill: rgba(255, 255, 255, 1);
 }
