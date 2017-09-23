@@ -1,19 +1,16 @@
 /**
  * Place your custom CSS styles here.
  **/
-*, *:before, *:after {
-    box-sizing: border-box;
-}
-
 ._memefy_meme-box-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    overflow: hidden;
     bottom: 0;
+    overflow: hidden;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.62);
+    background: rgba(0, 0, 0, 0.8);
+    box-sizing: border-box;
 }
 
 ._memefy_meme-box {
@@ -25,6 +22,11 @@
     transform: translate(-50%, -50%);
     background-size: 100%;
     background-color: #fff;
+    box-sizing: border-box;
+}
+
+._memefy_meme-box *, ._memefy_meme-box *:before, ._memefy_meme-box *:after {
+    box-sizing: border-box;
 }
 
 ._memefy_meme-box > *:not([class^="_memefy_"]):not([id^="_memefy_"]){
@@ -104,14 +106,15 @@
 
 #_memefy_meme-text-options {
     position: absolute;
-    width: 280px;
+    width: 250px;
     text-align: center;
     margin: 10px 0;
     padding: 5px 0;
     left: 50%;
     transform: translateX(-50%);
-    background: #fff;
     display: none;
+    background: #666;
+    border-radius: 4px;
 }
 
 #_memefy_meme-text-options:before {
@@ -125,12 +128,12 @@
 
 #_memefy_meme-text-options[type='top']:before {
     top: -10px;
-    border-bottom: 10px solid #fff;
+    border-bottom: 10px solid #666;
 }
 
 #_memefy_meme-text-options[type='bottom']:before {
     bottom: -10px;
-    border-top: 10px solid #fff;
+    border-top: 10px solid #666;
 }
 
 ._memefy_btn {
