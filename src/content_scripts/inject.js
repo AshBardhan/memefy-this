@@ -29,7 +29,7 @@ var memeTextOptions = {
 };
 
 function setMemeTextOptionsBoxPosition(memeTextOptionsBox) {
-	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 10: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
+	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 20: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 }
 
 
@@ -60,6 +60,7 @@ function showMemeTextOptionsBox(memeTextOptionsBox) {
 
 function hideMemeTextOptionsBox(memeTextOptionsBox) {
 	memeTextOptionsBox.style.display = 'none';
+	console.log('hidden');
 }
 
 function setMemeTextOptionsBox(optionType, memeTextOptionsBox) {
@@ -108,7 +109,7 @@ function setMemeBoxContent(memeBox) {
 
 		memeText.addEventListener('focus', function () {
 			var type = this.getAttribute('data-type');
-			memeText.classList.add('selected');
+			this.classList.add('selected');
 			selectedTextType = type;
 			selectedText = memeText;
 			setMemeBoxOption(memeTextOptionsBox);
@@ -116,9 +117,10 @@ function setMemeBoxContent(memeBox) {
 			setMemeTextOptionsBoxPosition(memeTextOptionsBox);
 		});
 
-		memeText.addEventListener('blur', function (e) {
+		memeText.addEventListener('blur', function () {
 			if(!memeTextOptionSelected) {
-				memeText.classList.remove('selected');
+				console.log('blur');
+				this.classList.remove('selected');
 				hideMemeTextOptionsBox(memeTextOptionsBox);
 			}
 		});
@@ -128,7 +130,6 @@ function setMemeBoxContent(memeBox) {
 		memePosBtn.addEventListener('mousedown', function () {
 			memeTextOptionSelected = true;
 			var position = this.getAttribute('data-pos');
-			console.log(position);
 			selectedText.setAttribute('data-pos', position);
 			memeTextOptions[selectedTextType]['pos'] = position;
 			setMemeTextOptionsBox('pos', memeTextOptionsBox);
@@ -146,7 +147,6 @@ function setMemeBoxContent(memeBox) {
 		memeSizeBtn.addEventListener('mousedown', function () {
 			memeTextOptionSelected = true;
 			var fontSize = this.getAttribute('data-size');
-			console.log(fontSize);
 			selectedText.setAttribute('data-size', fontSize);
 			memeTextOptions[selectedTextType]['size'] = fontSize;
 			setMemeTextOptionsBox('size', memeTextOptionsBox);
@@ -166,37 +166,6 @@ function setMemeBoxContent(memeBox) {
 		memeBoxOverlay.parentNode.removeChild(memeBoxOverlay);
 		memeBox.parentNode.removeChild(memeBox);
 	});
-
-	function saveScreenshot() {
-		var fileName = [
-			'memefy',
-			d.getFullYear(),
-			d.getMonth() + 1,
-			d.getDate(),
-			d.getHours(),
-			d.getMinutes(),
-			d.getSeconds()
-		].join('-') +'.png';
-
-		var filePath =
-			'filesystem:chrome-extension://' +
-			chrome.i18n.getMessage('@@extension_id') +
-			'/temporary/' +
-			fileName;
-
-		chrome.downloads.download(
-			{
-				url: filePath
-			},
-			function() {
-				// If there was an error, just open the screenshot in a tab.
-				// This happens in incognito mode where extension cannot access filesystem.
-				if (chrome.runtime.lastError) {
-					window.open(filePath);
-				}
-			}
-		);
-	}
 
 	function onImgLoad(image) {
 		var c = document.createElement('canvas');
@@ -225,7 +194,7 @@ function setMemeBoxContent(memeBox) {
 
 		var d = new Date();
 		var fileName = [
-				'meme',
+				'memefy',
 				d.getFullYear(),
 				d.getMonth() + 1,
 				d.getDate(),
@@ -243,17 +212,17 @@ function setMemeBoxContent(memeBox) {
 	}
 
 	memeDownloadBtn.addEventListener('click', function () {
-		chrome.runtime.sendMessage({msg: 'download_meme'}, function (response) {
-			console.log(response);
-			if (response && response.imgSrc) {
-				var image = new Image();
-				image.src = response.imgSrc;
-				image.addEventListener('load', function () {
-					onImgLoad(image);
-					console.log('making image');
-				});
-			}
-		});
+		setTimeout(function () {
+			chrome.runtime.sendMessage({msg: 'download_meme'}, function (response) {
+				if (response && response.imgSrc) {
+					var image = new Image();
+					image.src = response.imgSrc;
+					image.addEventListener('load', function () {
+						onImgLoad(image);
+					});
+				}
+			});
+		}, 0);
 	});
 
 	memeRefreshBtn.addEventListener('click', function () {
@@ -265,20 +234,14 @@ function setMemeBoxContent(memeBox) {
 }
 
 function makeMemeBox(){
-	var bodyRect = document.body.getBoundingClientRect(),
-		clickedElRect = clickedEl.getBoundingClientRect(),
+	var memeBox = document.createElement('div'),
 		clickedElWidth = clickedEl.width,
-		clickedElHeight = clickedEl.height,
-		clickedElOffsetTop   = clickedElRect.top - bodyRect.top,
-		clickedElOffsetLeft   = clickedElRect.left - bodyRect.left;
+		clickedElHeight = clickedEl.height;
 
-	var memeBox = document.createElement('div');
 	memeBox.classList.add('js-memefy_meme-box','_memefy_meme-box');
 	memeBox.style.width = clickedElWidth + 'px';
 	memeBox.style.height = clickedElHeight + 'px';
 	memeBox.style.backgroundImage = 'url("' + clickedEl.src + '")';
-	/*memeBox.style.top = clickedElOffsetTop + 'px';
-	memeBox.style.left = clickedElOffsetLeft + 'px';*/
 
 	memeBox.innerHTML =
 		'<textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text js-memefy_meme-text" tabindex="-1" data-type="top"></textarea> ' +

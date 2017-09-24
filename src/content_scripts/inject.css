@@ -178,7 +178,7 @@
 
 #_memefy_meme-box-options li {
     display: flex;
-    padding: 5px;
+    padding: 6px;
     background: red;
     text-align: center;
     cursor: pointer;
@@ -188,8 +188,8 @@
 }
 
 #_memefy_meme-box-options li svg {
-    width: 12px !important;
-    height: 12px !important;
+    width: 10px !important;
+    height: 10px !important;
     fill: rgba(255, 255, 255, 0.85);
 }
 

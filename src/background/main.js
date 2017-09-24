@@ -6,7 +6,7 @@ function genericOnClick(info, tab) {
 
 chrome.contextMenus.create({
     id: "myContextMenu",
-    title: "Memefy this",
+    title: "Memefy This Image",
     contexts: ["image"]
 });
 
