@@ -1,10 +1,10 @@
 var clickedEl = null;
 
-document.body.style.position="relative";
+document.body.style.position = "relative";
 
-document.addEventListener("mousedown", function(event){
+document.addEventListener("mousedown", function (event) {
 	//right click
-	if(event.button == 2) {
+	if (event.button == 2) {
 		clickedEl = event.target;
 	}
 }, true);
@@ -29,7 +29,7 @@ var memeTextOptions = {
 };
 
 function setMemeTextOptionsBoxPosition(memeTextOptionsBox) {
-	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 20: selectedText.offsetTop + selectedText.offsetHeight) + 'px';
+	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 20 : selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 }
 
 
@@ -117,7 +117,7 @@ function setMemeBoxContent(memeBox) {
 		});
 
 		memeText.addEventListener('blur', function () {
-			if(!memeTextOptionSelected) {
+			if (!memeTextOptionSelected) {
 				this.classList.remove('selected');
 				hideMemeTextOptionsBox(memeTextOptionsBox);
 			}
@@ -236,7 +236,7 @@ function makeMemeBox(){
 		clickedElWidth = clickedEl.width,
 		clickedElHeight = clickedEl.height;
 
-	memeBox.classList.add('js-memefy_meme-box','_memefy_meme-box');
+	memeBox.classList.add('js-memefy_meme-box', '_memefy_meme-box');
 	memeBox.style.width = clickedElWidth + 'px';
 	memeBox.style.height = clickedElHeight + 'px';
 	memeBox.style.backgroundImage = 'url("' + clickedEl.src + '")';
@@ -319,9 +319,9 @@ function makeMemeBox(){
 	setMemeBoxContent(memeBox);
 }
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.text && (request.text == "make_meme")) {
-		clickedEl.setAttribute('text','invaded');
+		clickedEl.setAttribute('text', 'invaded');
 		makeMemeBox();
 		sendResponse({ele: clickedEl.innerHTML});
 		return true;
