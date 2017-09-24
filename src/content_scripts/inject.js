@@ -60,7 +60,6 @@ function showMemeTextOptionsBox(memeTextOptionsBox) {
 
 function hideMemeTextOptionsBox(memeTextOptionsBox) {
 	memeTextOptionsBox.style.display = 'none';
-	console.log('hidden');
 }
 
 function setMemeTextOptionsBox(optionType, memeTextOptionsBox) {
@@ -119,7 +118,6 @@ function setMemeBoxContent(memeBox) {
 
 		memeText.addEventListener('blur', function () {
 			if(!memeTextOptionSelected) {
-				console.log('blur');
 				this.classList.remove('selected');
 				hideMemeTextOptionsBox(memeTextOptionsBox);
 			}
