@@ -156,6 +156,7 @@ new function () {
         self.memeCancelBtn.addEventListener('click', function () {
             self.memeBoxOverlay.parentNode.removeChild(self.memeBoxOverlay);
             self.memeBox.parentNode.removeChild(self.memeBox);
+            document.body.style.cssText = "";
         });
 
         function onImgLoad(image) {
@@ -198,6 +199,9 @@ new function () {
             link.href = c.toDataURL();
             link.download = fileName;
             document.body.appendChild(link);
+            link.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
             link.click();
             link.parentNode.removeChild(link);
         }
@@ -306,13 +310,12 @@ new function () {
         this.memeBoxOverlay = document.createElement('div');
         this.memeBoxOverlay.classList.add('js-memefy_meme-box-overlay', '_memefy_meme-box-overlay');
         document.body.appendChild(this.memeBoxOverlay);
+        document.body.style.cssText = "position: relative; overflow-y: hidden; height: 100vh";
 
         this.setMemeBoxContent();
     };
 
     this.init = function () {
-        document.body.style.position = "relative";
-
         document.addEventListener("mousedown", function (event) {
             //right click
             if (event.button == 2) {
