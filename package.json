@@ -1,0 +1,27 @@
+{
+  "name": "memefy-this",
+  "version": "0.1.1",
+  "description": "Make Memes Online Instantly",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshBardhan/memefy-this.git"
+  },
+  "keywords": [
+    "memes",
+    "funny",
+    "trolls",
+    "jokes"
+  ],
+  "author": "AshBardhan<ashbardhan@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AshBardhan/memefy-this/issues"
+  },
+  "homepage": "https://ashbardhan.github.io/memefy-this"
+}

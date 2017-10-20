@@ -6,3 +6,9 @@
 
 ### macOS template
 *.DS_Store
+
+### File dependencies
+node_modules/
+
+### Deployment folder
+dist/
