@@ -43,6 +43,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-zip');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('default', ['copy', 'uglify']);
-	grunt.registerTask('test', ['copy']);
+	grunt.registerTask('build', ['copy', 'uglify', 'zip']);
+	grunt.registerTask('test', ['copy', 'watch']);
 };
