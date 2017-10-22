@@ -10,13 +10,15 @@ module.exports = function (grunt) {
 				dest: 'dist/'
 			}
 		},
-		/*uglify: {
+		uglify: {
 			'js': {
-				src: ['public/js/interaction.js'],
-				dest: 'public/js/interaction.min.js'
+				expand: true,
+				cwd: 'dist/src',
+				src: ['**/*.js'],
+				dest: 'dist/src'
 			}
 		},
-		cssmin: {
+		/*cssmin: {
 			'css': {
 				src: ['public/css/style.css'],
 				dest: 'public/css/style.min.css'
@@ -35,12 +37,12 @@ module.exports = function (grunt) {
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	/*grunt.loadNpmTasks('grunt-contrib-less');
-	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	/*
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-watch');*/
 
 	/*grunt.registerTask('default', ['less', 'concat', 'uglify', 'cssmin']);*/
-	grunt.registerTask('default', ['copy']);
+	grunt.registerTask('default', ['copy', 'uglify']);
+	grunt.registerTask('test', ['copy']);
 };
