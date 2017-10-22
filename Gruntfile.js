@@ -18,31 +18,22 @@ module.exports = function (grunt) {
 				dest: 'dist/src'
 			}
 		},
-		/*cssmin: {
-			'css': {
-				src: ['public/css/style.css'],
-				dest: 'public/css/style.min.css'
-			}
-		},*/
 		watch: {
-			'js' : {
-				files: ['public/js/*.js', '!public/js/interaction*.js'],
-				tasks: ['concat:js', 'uglify:js']
+			'src': {
+				files: ['src/**/*.js', 'src/**/*.css'],
+				tasks: ['copy:folders']
 			},
-			'css' : {
-				files: ['public/less/**/*.less'],
-				tasks: ['less', 'cssmin']
+			'manifest': {
+				files: ['manifest.json'],
+				tasks: ['copy:files']
 			}
 		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	/*
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-contrib-watch');*/
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	/*grunt.registerTask('default', ['less', 'concat', 'uglify', 'cssmin']);*/
 	grunt.registerTask('default', ['copy', 'uglify']);
 	grunt.registerTask('test', ['copy']);
 };
