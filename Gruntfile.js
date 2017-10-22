@@ -18,6 +18,14 @@ module.exports = function (grunt) {
 				dest: 'dist/src'
 			}
 		},
+		zip: {
+			'using-cwd': {
+				cwd: 'dist/',
+				// Files will zip to 'hello.js' and 'world.js'
+				src: ['dist/**'],
+				dest: 'memefy-this.zip'
+			}
+		},
 		watch: {
 			'src': {
 				files: ['src/**/*.js', 'src/**/*.css'],
@@ -32,6 +40,7 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-zip');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['copy', 'uglify']);

@@ -12,3 +12,4 @@ node_modules/
 
 ### Deployment folder
 dist/
+*.zip
