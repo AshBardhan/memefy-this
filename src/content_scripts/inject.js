@@ -156,7 +156,8 @@ new function () {
         self.memeCancelBtn.addEventListener('click', function () {
             self.memeBoxOverlay.parentNode.removeChild(self.memeBoxOverlay);
             self.memeBox.parentNode.removeChild(self.memeBox);
-            document.body.style.cssText = "";
+            document.body.classList.remove('_memefy_body');
+
         });
 
         function onImgLoad(image) {
@@ -230,12 +231,28 @@ new function () {
 
     this.setMemeBox = function () {
         var clickedElWidth = this.clickedEl.width,
-            clickedElHeight = this.clickedEl.height;
+            clickedElHeight = this.clickedEl.height,
+            windowWidth = window.innerWidth,
+            windowHeight = window.innerHeight,
+            memeBoxWidth = clickedElWidth,
+            memeBoxHeight = clickedElHeight;
 
         this.memeBox = document.createElement('div');
         this.memeBox.classList.add('js-memefy_meme-box', '_memefy_meme-box');
-        this.memeBox.style.width = clickedElWidth + 'px';
-        this.memeBox.style.height = clickedElHeight + 'px';
+
+        if (memeBoxWidth >= windowWidth) {
+            memeBoxWidth = windowWidth - 30;
+            memeBoxHeight = clickedElHeight / clickedElWidth * memeBoxWidth;
+        }
+
+        if (memeBoxHeight >= windowHeight) {
+            memeBoxHeight = windowHeight - 10;
+            memeBoxWidth = clickedElWidth / clickedElHeight * memeBoxHeight;
+        }
+
+        this.memeBox.style.width = memeBoxWidth + 'px';
+        this.memeBox.style.height = memeBoxHeight + 'px';
+
         this.memeBox.style.backgroundImage = 'url("' + this.clickedEl.src + '")';
         this.memeBox.innerHTML =
             '<textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text js-memefy_meme-text" tabindex="-1" data-type="top"></textarea> ' +
@@ -310,7 +327,7 @@ new function () {
         this.memeBoxOverlay = document.createElement('div');
         this.memeBoxOverlay.classList.add('js-memefy_meme-box-overlay', '_memefy_meme-box-overlay');
         document.body.appendChild(this.memeBoxOverlay);
-        document.body.style.cssText = "position: relative; overflow-y: hidden; height: 100vh";
+        document.body.classList.add('_memefy_body');
 
         this.setMemeBoxContent();
     };

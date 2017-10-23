@@ -1,6 +1,13 @@
 /**
  * Injected CSS for Memefy-This
  **/
+
+._memefy_body {
+    position: relative;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
 ._memefy_meme-box-overlay {
     position: fixed;
     top: 0;
