@@ -167,17 +167,15 @@ new function () {
             c.height = iframeBounds.height;
             c.style.display = 'none';
 
-            var imageWindowsRatio = {};
-            imageWindowsRatio.x = image.width / window.innerWidth;
-            imageWindowsRatio.y = image.height / window.innerHeight;
+            var devicePixelRatio = window.devicePixelRatio || 1;
 
             var ctx = c.getContext('2d');
             ctx.drawImage(
                 image,
-                iframeBounds.left * imageWindowsRatio.x,
-                iframeBounds.top * imageWindowsRatio.y,
-                iframeBounds.width * imageWindowsRatio.x,
-                iframeBounds.height * imageWindowsRatio.y,
+                iframeBounds.left * devicePixelRatio,
+                iframeBounds.top * devicePixelRatio,
+                iframeBounds.width * devicePixelRatio,
+                iframeBounds.height * devicePixelRatio,
                 0,
                 0,
                 iframeBounds.width,
