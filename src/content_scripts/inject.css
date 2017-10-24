@@ -51,11 +51,11 @@
     font-family: Impact !important;
     line-height: 1.2 !important;
     text-transform: uppercase !important;
-    color: white;
+    color: white !important;
     background: transparent;
-    outline: 0;
-    border: none;
-    letter-spacing: 0.025em;
+    outline: 0 !important;
+    border: none !important;
+    letter-spacing: 0.025em !important;
     text-shadow: 2px 2px 0 #000,
     -2px -2px 0 #000,
     2px -2px 0 #000,
@@ -64,7 +64,7 @@
     2px 0px 0 #000,
     0px -2px 0 #000,
     -2px 0px 0 #000,
-    2px 2px 5px #000;
+    2px 2px 5px #000 !important;
 }
 
 ._memefy_meme-text.selected {
