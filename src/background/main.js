@@ -24,7 +24,7 @@ _gaq.push(['_trackPageview']);
 })();
 
 function trackGAEvent(eventName, eventValue) {
-	_gaq.push(['_trackEvent', eventName, eventValue || '']);
+	_gaq.push(['_trackEvent', eventName, eventValue]);
 }
 
 chrome.contextMenus.create({
@@ -36,22 +36,27 @@ chrome.contextMenus.create({
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
 	if (tab) {
 		chrome.tabs.sendMessage(tab.id, {text: "make_meme"}, function (response) {
-			trackGAEvent('menu-option', 'select');
+			trackGAEvent('meme_menu-option', 'select');
 			console.log(response);
 		});
 	}
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	if (request.msg && request.msg === 'download_meme') {
-		console.log(request.msg);
-		chrome.tabs.captureVisibleTab(
-			null,
-			{format: 'png', quality: 100},
-			function (dataURL) {
-				sendResponse({imgSrc: dataURL});
-			}
-		);
-		return true;
+	if (request.msg) {
+		if (request.msg === 'download_meme') {
+			chrome.tabs.captureVisibleTab(
+				null,
+				{format: 'png', quality: 100},
+				function (dataURL) {
+					sendResponse({imgSrc: dataURL});
+				}
+			);
+			return true;
+		}
+
+		if (request.msg === 'track_GA_event') {
+			trackGAEvent(request.eventName, request.eventValue);
+		}
 	}
 });

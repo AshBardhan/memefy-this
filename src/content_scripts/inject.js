@@ -56,6 +56,14 @@ new function () {
 		this.memeTextOptionsBox.style.display = 'none';
 	};
 
+	this.trackGAEvent = function (eventName, eventValue) {
+		chrome.runtime.sendMessage({
+			msg: 'track_GA_event',
+			eventName: eventName,
+			eventValue: eventValue
+		});
+	};
+
 	this.setMemeTextOptionsBox = function (optionType) {
 		var memeGroupOptions = this.memeTextOptionsBox.querySelectorAll('[data-' + optionType + ']');
 		[].forEach.call(memeGroupOptions, function (memeGroupOption) {
@@ -107,12 +115,14 @@ new function () {
 				self.setMemeBoxOption();
 				self.showMemeTextOptionsBox();
 				self.setMemeTextOptionsBoxPosition();
+				self.trackGAEvent('meme_text-focus', self.selectedTextType);
 			});
 
 			memeText.addEventListener('blur', function () {
 				if (!self.memeTextOptionSelected) {
 					this.classList.remove('selected');
 					self.hideMemeTextOptionsBox();
+					self.trackGAEvent('meme_text-blur', self.selectedTextType);
 				}
 			});
 		});
@@ -127,6 +137,7 @@ new function () {
 				setTimeout(function () {
 					self.selectedText.focus();
 				}, 0);
+				self.trackGAEvent('meme_text-position', self.selectedTextType + '-' + position);
 			});
 
 			memePosBtn.addEventListener('mouseout', function () {
@@ -146,6 +157,7 @@ new function () {
 				setTimeout(function () {
 					self.selectedText.focus();
 				}, 0);
+				self.trackGAEvent('meme_text-size', self.selectedTextType + '-' + fontSize);
 			});
 
 			memeSizeBtn.addEventListener('mouseout', function () {
@@ -157,7 +169,7 @@ new function () {
 			self.memeBoxOverlay.parentNode.removeChild(self.memeBoxOverlay);
 			self.memeBox.parentNode.removeChild(self.memeBox);
 			document.body.classList.remove('_memefy_body');
-
+			self.trackGAEvent('meme_cancel', 'click');
 		});
 
 		function onImgLoad(image) {
@@ -214,6 +226,7 @@ new function () {
 						image.addEventListener('load', function () {
 							onImgLoad(image);
 						});
+						self.trackGAEvent('meme_download', 'click');
 					}
 				});
 			}, 0);
@@ -224,6 +237,7 @@ new function () {
 				self.resetMemeTextOptions(memeText);
 				self.setMemeTextHeight(memeText);
 			});
+			self.trackGAEvent('meme_refresh', 'click');
 		});
 	};
 
