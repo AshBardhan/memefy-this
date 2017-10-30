@@ -7,9 +7,9 @@ The ultimate meme machine in form of a chrome-extension for making instant memes
 [Download](https://chrome.google.com/webstore/detail/memefy-this/iohemjpgjkgkfgfpiglpfpcclogkelcf)
 
 If you find it useful (I bet you will!), show your support by all means
-- Share this app on your social plaftorms as much as possible.
+- Share this app on all social platforms as much as possible.
 - Follow [@MemefyThis](https://twitter.com/MemefyThis) on Twitter for more updates and share your memes created from my app. 
-- Send feedbacks with :heart: or :skull: by tweeting to [@CreativeBakchod](https://twitter.com/CreativeBakchod) a.k.a **The Savior Meme-Maker**.
+- Send feedbacks/suggestions with :heart: or :skull: by tweeting to [@CreativeBakchod](https://twitter.com/CreativeBakchod) a.k.a **The Savior Meme-Maker**.
 
 ### CONTRIBUTING
 
