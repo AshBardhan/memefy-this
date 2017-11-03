@@ -4,7 +4,7 @@
 
 The ultimate meme machine in form of a chrome-extension for making instant memes online.
 
-[Download](https://chrome.google.com/webstore/detail/memefy-this/iohemjpgjkgkfgfpiglpfpcclogkelcf)
+[Download](https://chrome.google.com/webstore/detail/memefy-this/iohemjpgjkgkfgfpiglpfpcclogkelcf)  [View Demo](https://ashbardhan.github.io/memefy-this/)
 
 If you find it useful (I bet you will!), show your support by all means
 - Share this app on all social platforms as much as possible.
