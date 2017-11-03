@@ -4,7 +4,7 @@
 
 The ultimate meme machine in form of a chrome-extension for making instant memes online.
 
-[Download](https://chrome.google.com/webstore/detail/memefy-this/iohemjpgjkgkfgfpiglpfpcclogkelcf)  [View Demo](https://ashbardhan.github.io/memefy-this/)
+[Download](https://chrome.google.com/webstore/detail/memefy-this/iohemjpgjkgkfgfpiglpfpcclogkelcf) [View Demo](https://ashbardhan.github.io/memefy-this/)
 
 If you find it useful (I bet you will!), show your support by all means
 - Share this app on all social platforms as much as possible.
@@ -31,5 +31,7 @@ If you find it useful (I bet you will!), show your support by all means
 ### License
 
 MIT Licensed
+
+Featured on [Product Hunt](https://www.producthunt.com/posts/memefy-this) and [Hacker News](https://news.ycombinator.com/item?id=15618018)
 
 Copyright (c) 2017 AshBardhan, [ashbardhan.github.io](https://ashbardhan.github.io)
