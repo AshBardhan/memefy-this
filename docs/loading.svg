@@ -6,28 +6,16 @@
     </defs>
     <g>
         <use xlink:href="#c1" x="288" y="153">
-            <animate id="anim1_x" attributeName="x" attributeType="XML" calcMode="linear" from="288" to="337" dur="0.6s" begin="0s;anim3_x.end"/>
-            <animate id="anim2_x" attributeName="x" attributeType="XML" calcMode="linear" from="337" to="315" dur="0.6s" begin="anim1_x.end"/>
-            <animate id="anim3_x" attributeName="x" attributeType="XML" calcMode="linear" from="315" to="288" dur="0.6s" begin="anim2_x.end"/>
-            <animate id="anim1_y" attributeName="y" attributeType="XML" calcMode="linear" from="153" to="153" dur="0.6s" begin="0s;anim3_y.end"/>
-            <animate id="anim2_y" attributeName="y" attributeType="XML" calcMode="linear" from="153" to="197" dur="0.6s" begin="anim1_y.end"/>
-            <animate id="anim3_y" attributeName="y" attributeType="XML" calcMode="linear" from="197" to="153" dur="0.6s" begin="anim2_y.end"/>
+            <animate attributeName="x" attributeType="XML" calcMode="linear" repeatCount="indefinite" values="288; 337; 315; 288" dur="1.5s"/>
+            <animate attributeName="y" attributeType="XML" calcMode="linear" repeatCount="indefinite" values="153; 153; 197; 153" dur="1.5s"/>
         </use>
         <use xlink:href="#c1" x="337" y="153">
-            <animate id="anim1_x" attributeName="x" attributeType="XML" calcMode="linear" from="337" to="315" dur="0.6s" begin="0s;anim3_x.end"/>
-            <animate id="anim2_x" attributeName="x" attributeType="XML" calcMode="linear" from="315" to="288" dur="0.6s" begin="anim1_x.end"/>
-            <animate id="anim3_x" attributeName="x" attributeType="XML" calcMode="linear" from="288" to="337" dur="0.6s" begin="anim2_x.end"/>
-            <animate id="anim1_y" attributeName="y" attributeType="XML" calcMode="linear" from="153" to="197" dur="0.6s" begin="0s;anim3_y.end"/>
-            <animate id="anim2_y" attributeName="y" attributeType="XML" calcMode="linear" from="197" to="153" dur="0.6s" begin="anim1_y.end"/>
-            <animate id="anim3_y" attributeName="y" attributeType="XML" calcMode="linear" from="153" to="153" dur="0.6s" begin="anim2_y.end"/>
+            <animate attributeName="x" attributeType="XML" calcMode="linear" repeatCount="indefinite" values="337; 315; 288; 337" dur="1.5s"/>
+            <animate attributeName="y" attributeType="XML" calcMode="linear" repeatCount="indefinite" values="153; 197; 153; 153" dur="1.5s"/>
         </use>
         <use xlink:href="#c1" x="315" y="197">
-            <animate id="anim1_x" attributeName="x" attributeType="XML" calcMode="linear" from="315" to="288" dur="0.6s" begin="0s;anim3_x.end"/>
-            <animate id="anim2_x" attributeName="x" attributeType="XML" calcMode="linear" from="288" to="337" dur="0.6s" begin="anim1_x.end"/>
-            <animate id="anim3_x" attributeName="x" attributeType="XML" calcMode="linear" from="337" to="315" dur="0.6s" begin="anim2_x.end"/>
-            <animate id="anim2_y" attributeName="y" attributeType="XML" calcMode="linear" from="197" to="153" dur="0.6s" begin="0s;anim3_y.end"/>
-            <animate id="anim3_y" attributeName="y" attributeType="XML" calcMode="linear" from="153" to="153" dur="0.6s" begin="anim1_y.end"/>
-            <animate id="anim1_y" attributeName="y" attributeType="XML" calcMode="linear" from="153" to="197" dur="0.6s" begin="anim2_y.end"/>
+            <animate attributeName="x" attributeType="XML" calcMode="linear" repeatCount="indefinite" values="315; 288; 337; 315" dur="1.5s"/>
+            <animate attributeName="y" attributeType="XML" calcMode="linear" repeatCount="indefinite" values="197; 153; 153; 197" dur="1.5s"/>
         </use>
     </g>
 </svg>
