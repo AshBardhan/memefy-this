@@ -39,6 +39,7 @@
       "19": "icons/icon19.png",
       "38": "icons/icon38.png"
     },
-    "default_title": "Memefy This"
+    "default_title": "Memefy This",
+    "default_popup": "src/popup.html"
   }
 }
