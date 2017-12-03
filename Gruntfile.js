@@ -28,7 +28,7 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			'src': {
-				files: ['src/**/*.js', 'src/**/*.css'],
+				files: ['src/**'],
 				tasks: ['copy:folders']
 			},
 			'manifest': {

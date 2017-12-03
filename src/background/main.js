@@ -1,15 +1,4 @@
-/**
- * Add your Analytics tracking ID here.
- */
 var _AnalyticsCode = 'UA-54569024-2';
-
-/**
- * Below is a modified version of the Google Analytics asynchronous tracking
- * code snippet.  It has been modified to pull the HTTPS version of ga.js
- * instead of the default HTTP version.  It is recommended that you use this
- * snippet instead of the standard tracking snippet provided when setting up
- * a Google Analytics account.
- */
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', _AnalyticsCode]);
 _gaq.push(['_trackPageview']);
@@ -37,7 +26,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 	if (tab) {
 		chrome.tabs.sendMessage(tab.id, {text: "make_meme"}, function (response) {
 			trackGAEvent('meme_menu-option', 'select');
-			console.log(response);
+			return true;
 		});
 	}
 });
