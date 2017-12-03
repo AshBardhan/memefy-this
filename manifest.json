@@ -19,7 +19,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": ["http://*/*", "https://*/*", "file:///*/*"],
       "css": [
         "src/content_scripts/inject.css"
       ],

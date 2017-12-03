@@ -21,7 +21,6 @@ module.exports = function (grunt) {
 		zip: {
 			'using-cwd': {
 				cwd: 'dist/',
-				// Files will zip to 'hello.js' and 'world.js'
 				src: ['dist/**'],
 				dest: 'memefy-this.zip'
 			}
