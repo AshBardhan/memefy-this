@@ -6,6 +6,9 @@ new function () {
 	this.defaultPosition = 'center';
 	this.defaultFontSize = 'medium';
 	this.memeTextOptionSelected = false;
+	this.minImageWidth = 320;
+	this.minImageHeight = 240;
+	this.warningBoxExpiry = 10000;
 	this.memeTextOptions = {
 		'top': {
 			'size': this.defaultFontSize,
@@ -22,6 +25,7 @@ new function () {
 	this.clickedEl = this.selectedTextType = this.selectedText = null;
 	this.memeBox = this.memeBoxOverlay = this.memeTextOptionsBox = this.memeTexts = this.memePosBtns = this.memeSizeBtns = null;
 	this.memeDownloadBtn = this.memeRefreshBtn = this.memeCancelBtn = null;
+	this.warningBox = this.warningBoxTimer = null;
 
 	this.setMemeTextOptionsBoxPosition = function () {
 		self.memeTextOptionsBox.style.top = (self.selectedTextType === 'bottom' ? self.selectedText.offsetTop - self.memeTextOptionsBox.offsetHeight - 20 : self.selectedText.offsetTop + self.selectedText.offsetHeight) + 'px';
@@ -241,6 +245,30 @@ new function () {
 		});
 	};
 
+	this.hideWarningBox = function () {
+		this.warningBox.style.display = 'none';
+	};
+
+	this.showWarningBox = function () {
+		if (!this.warningBox) {
+			this.warningBox = document.createElement('div');
+			this.warningBox.classList.add('js-memefy_warning-box', '_memefy_warning-box');
+			this.warningBox.innerHTML = 'Can\'t Memefy image below <b>320 x 240 px</b> in size<span class="js-memefy_close-warning-box _memefy_close-warning-box">x</span>';
+			document.body.appendChild(this.warningBox);
+
+			this.warningBox.querySelector('.js-memefy_close-warning-box').addEventListener('click', function () {
+				clearTimeout(self.warningBoxTimer);
+				self.hideWarningBox();
+			});
+		}
+
+		this.warningBox.style.display = 'block';
+		clearTimeout(this.warningBoxTimer);
+		this.warningBoxTimer = setTimeout(function () {
+			self.hideWarningBox();
+		}, self.warningBoxExpiry);
+	};
+
 	this.setMemeBox = function () {
 		var clickedElWidth = this.clickedEl.width,
 			clickedElHeight = this.clickedEl.height,
@@ -354,9 +382,14 @@ new function () {
 
 		chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 			if (request.text && (request.text == "make_meme")) {
-				self.clickedEl.setAttribute('text', 'invaded');
-				self.setMemeBox();
-				sendResponse({ele: self.clickedEl.innerHTML});
+				console.log(self.clickedEl.width);
+				console.log(self.clickedEl.height);
+				if (self.clickedEl.width >= self.minImageWidth && self.clickedEl.height >= self.minImageHeight) {
+					self.setMemeBox();
+					sendResponse({ele: self.clickedEl.innerHTML});
+				} else {
+					self.showWarningBox();
+				}
 				return true;
 			}
 		});

@@ -7,6 +7,39 @@
 	height: 100vh;
 }
 
+._memefy_warning-box {
+	z-index: 1000;
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	background: #fee98e;
+	color: #b89a50;
+	padding: 10px;
+	padding-right: 34px;
+	border: 1px solid #eecf49;
+	border-bottom-width: 3px;
+	border-radius: 2px;
+}
+
+._memefy_close-warning-box {
+	position: absolute;
+	right: 6px;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #fee98e;
+	background: #b89a50;
+	line-height: 18px;
+	height: 18px;
+	width: 18px;
+	font-size: 9px;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
 ._memefy_meme-box-overlay {
 	position: fixed;
 	top: 0;
