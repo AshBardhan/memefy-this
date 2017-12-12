@@ -9,7 +9,7 @@
 			box-sizing: border-box;
 			padding: 0;
 			margin: 0;
-			font-family: Helvetica;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		}
 
 		h1 {
@@ -20,18 +20,28 @@
 			background: deepskyblue;
 			margin: 0;
 			padding: 5px;
-			letter-spacing: 1px;
+			letter-spacing: 2px;
 			word-spacing: 3px;
+			text-shadow: 2px 2px 0 #000,
+			-2px -2px 0 #000,
+			2px -2px 0 #000,
+			-2px 2px 0 #000,
+			0 2px 0 #000,
+			2px 0 0 #000,
+			0 -2px 0 #000,
+			-2px 0 0 #000,
+			2px 2px 5px #000 !important;
 		}
 
 		div {
 			padding: 10px;
-			font-size: 12px;
+			font-size: 14px;
 		}
 
 		ol {
 			padding-left: 15px;
 			margin: 10px 0;
+			font-size: 12px;
 		}
 
 		li {
@@ -43,7 +53,7 @@
 <body>
 	<h1>Memefy This</h1>
 	<div>
-		Instructions
+		<b>Instructions</b>
 		<ol>
 			<li>Right-click select <b>'Memefy This Image’</b> option on any image present on the website</li>
 			<li>Add some text at the top and bottom</li>
