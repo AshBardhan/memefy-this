@@ -259,6 +259,7 @@ new function () {
 			this.warningBox.querySelector('.js-memefy_close-warning-box').addEventListener('click', function () {
 				clearTimeout(self.warningBoxTimer);
 				self.hideWarningBox();
+				self.trackGAEvent('warning_box', 'close');
 			});
 		}
 
@@ -266,7 +267,11 @@ new function () {
 		clearTimeout(this.warningBoxTimer);
 		this.warningBoxTimer = setTimeout(function () {
 			self.hideWarningBox();
+			self.trackGAEvent('warning_box', 'auto-close');
 		}, self.warningBoxExpiry);
+		this.trackGAEvent('warning_box', 'show');
+		this.trackGAEvent('warning_meme_width', self.clickedEl.width + 'px');
+		this.trackGAEvent('warning_meme_height', self.clickedEl.height + 'px');
 	};
 
 	this.setMemeBox = function () {
@@ -368,6 +373,9 @@ new function () {
 		this.memeBoxOverlay.classList.add('js-memefy_meme-box-overlay', '_memefy_meme-box-overlay');
 		document.body.appendChild(this.memeBoxOverlay);
 		document.body.classList.add('_memefy_body');
+		this.trackGAEvent('meme_box', 'show');
+		this.trackGAEvent('meme_width', memeBoxWidth + 'px');
+		this.trackGAEvent('meme_height', memeBoxHeight + 'px');
 
 		this.setMemeBoxContent();
 	};
@@ -382,8 +390,7 @@ new function () {
 
 		chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
 			if (request.text && (request.text == "make_meme")) {
-				console.log(self.clickedEl.width);
-				console.log(self.clickedEl.height);
+				self.trackGAEvent('image_dimensions', self.clickedEl.width + 'x' + self.clickedEl.height);
 				if (self.clickedEl.width >= self.minImageWidth && self.clickedEl.height >= self.minImageHeight) {
 					self.setMemeBox();
 					sendResponse({ele: self.clickedEl.innerHTML});
