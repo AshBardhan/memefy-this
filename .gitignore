@@ -1,15 +1,28 @@
-# Created by .ignore support plugin (hsz.mobi)
-
-### JetBrains template
+# IDE specific templates
 .idea/
 *.iml
+.vs/
 
-### macOS template
+## macOS template
 *.DS_Store
+.AppleDouble
+.LSOverride
+Icon
 
-### File dependencies
+# Thumbnails
+._*
+
+# SublimeText project files
+*.sublime-*
+
+## vim related
+*.swp
+*.swo
+
+## File dependencies
 node_modules/
+*.log
 
-### Deployment folder
+## Deployment
 dist/
 *.zip
