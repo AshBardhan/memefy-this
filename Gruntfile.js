@@ -1,5 +1,19 @@
 module.exports = function (grunt) {
+	const sass = require('node-sass');
+	require('load-grunt-tasks')(grunt);
+
 	grunt.initConfig({
+		sass: {
+			options: {
+				implementation: sass,
+				sourceMap: true
+			},
+			dist: {
+				files: {
+					'src/content_scripts/inject.css': 'styles/inject.scss'
+				}
+			}
+		},
 		copy: {
 			'folders': {
 				src: ['src/**', '_locales/**', 'icons/**'],

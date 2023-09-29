@@ -23,6 +23,9 @@ Icon
 node_modules/
 *.log
 
+## Source Files
+src/content_scripts/inject.css*
+
 ## Deployment
 dist/
 *.zip
