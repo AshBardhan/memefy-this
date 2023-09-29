@@ -65,14 +65,14 @@
 	background-size: 100%;
 	background-color: $color-white;
 	box-sizing: border-box;
-}
 
-._memefy_meme-box *, ._memefy_meme-box *:before, ._memefy_meme-box *:after {
-	box-sizing: border-box;
-}
+	*, *:before, *:after {
+		box-sizing: border-box;
+	}
 
-._memefy_meme-box > *:not([class^="_memefy_"]):not([id^="_memefy_"]) {
-	display: none;
+	> *:not([class^="_memefy_"]):not([id^="_memefy_"]) {
+		display: none;
+	}	
 }
 
 ._memefy_meme-text {
@@ -100,50 +100,50 @@
 	0 -2px 0 $color-black,
 	-2px 0 0 $color-black,
 	2px 2px 5px $color-black !important;
-}
+	
+	&.selected {
+		background: rgba($color-black, 0.35) !important;
+	}
 
-._memefy_meme-text.selected {
-	background: rgba($color-black, 0.35) !important;
-}
+	&[data-type=bottom] {
+		bottom: 5px;
+	}
 
-._memefy_meme-text[data-type=bottom] {
-	bottom: 5px;
-}
+	&[data-type=top] {
+		top: 5px;		
+	}
 
-._memefy_meme-text[data-type=top] {
-	top: 5px;
-}
+	&[data-pos=left] {
+		text-align: left !important;
+	}
 
-._memefy_meme-text[data-pos=left] {
-	text-align: left !important;
-}
+	&[data-pos=right] {
+		text-align: right !important;
+	}
 
-._memefy_meme-text[data-pos=right] {
-	text-align: right !important;
-}
+	&[data-pos=center] {
+		text-align: center !important;
+	}
 
-._memefy_meme-text[data-pos=center] {
-	text-align: center !important;
-}
+	&[data-size=xsmall] {
+		font-size: 20px !important;
+	}
 
-._memefy_meme-text[data-size=xsmall] {
-	font-size: 20px !important;
-}
+	&[data-size=small] {
+		font-size: 30px !important;
+	}
 
-._memefy_meme-text[data-size=small] {
-	font-size: 30px !important;
-}
+	&[data-size=medium] {
+		font-size: 40px !important;
+	}
 
-._memefy_meme-text[data-size=medium] {
-	font-size: 40px !important;
-}
+	&[data-size=large] {
+		font-size: 50px !important;
+	}
 
-._memefy_meme-text[data-size=large] {
-	font-size: 50px !important;
-}
-
-._memefy_meme-text[data-size=xlarge] {
-	font-size: 60px !important;
+	&[data-size=xlarge] {
+		font-size: 60px !important;
+	}
 }
 
 #_memefy_meme-text-options {
@@ -157,25 +157,25 @@
 	display: none;
 	background: $color-gray;
 	border-radius: 4px;
-}
 
-#_memefy_meme-text-options:before {
-	content: '';
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-}
+	&::before {
+		content: '';
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+	}
 
-#_memefy_meme-text-options[type='top']:before {
-	top: -10px;
-	border-bottom: 10px solid $color-gray;
-}
+	&[type='top']::before {
+		top: -10px;
+		border-bottom: 10px solid $color-gray;
+	}
 
-#_memefy_meme-text-options[type='bottom']:before {
-	bottom: -10px;
-	border-top: 10px solid $color-gray;
+	&[type='bottom']::before {
+		bottom: -10px;
+		border-top: 10px solid $color-gray;
+	}
 }
 
 ._memefy_btn {
@@ -188,25 +188,27 @@
 	height: 24px;
 	line-height: 24px;
 	padding: 2px;
-}
 
-._memefy_btn svg {
-	width: 20px;
-	height: 20px;
-	stroke: rgba($color-white, 0.5);
-	fill: rgba($color-white, 0.5);
-	stroke-width: 3px;
-}
+	svg {
+		width: 20px;
+		height: 20px;
+		stroke: rgba($color-white, 0.5);
+		fill: rgba($color-white, 0.5);
+		stroke-width: 3px;
+	}
 
-._memefy_btn[data-size] svg {
-	stroke-width: 0;
-	letter-spacing: 1px;
-}
+	&[data-size] svg {
+		stroke-width: 0;
+		letter-spacing: 1px;
+	}
 
-._memefy_btn:hover svg, ._memefy_btn.selected svg {
-	stroke: rgba($color-white, 1);
-	fill: rgba($color-white, 1);
-}
+	&:hover, &.selected {
+		svg {
+			stroke: rgba($color-white, 1);
+			fill: rgba($color-white, 1);
+		}
+	}
+} 
 
 #_memefy_meme-box-options {
 	position: absolute;
@@ -216,25 +218,25 @@
 	margin: 0;
 	padding: 0;
 	transform: translateY(-50%);
-}
 
-#_memefy_meme-box-options li {
-	display: flex;
-	padding: 6px;
-	background: red;
-	text-align: center;
-	cursor: pointer;
-	margin: 5px 0;
-	height: 22px;
-	width: 22px;
-}
+	li {
+		display: flex;
+		padding: 6px;
+		background: red;
+		text-align: center;
+		cursor: pointer;
+		margin: 5px 0;
+		height: 22px;
+		width: 22px;
 
-#_memefy_meme-box-options li svg {
-	width: 10px !important;
-	height: 10px !important;
-	fill: rgba($color-white, 0.85);
-}
+		svg {
+			width: 10px !important;
+			height: 10px !important;
+			fill: rgba($color-white, 0.85);
+		}
 
-#_memefy_meme-box-options li:hover svg {
-	fill: rgba($color-white, 1);
+		&:hover svg {
+			fill: rgba($color-white, 1);
+		}
+	}
 }
