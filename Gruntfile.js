@@ -44,6 +44,10 @@ module.exports = function (grunt) {
 				files: ['src/**'],
 				tasks: ['copy:folders']
 			},
+			'sass': {
+				files: ['styles/**'],
+				tasks: ['sass']
+			},
 			'manifest': {
 				files: ['manifest.json'],
 				tasks: ['copy:files']
@@ -56,6 +60,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-zip');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('build', ['copy', 'uglify', 'zip']);
-	grunt.registerTask('test', ['copy', 'watch']);
+	grunt.registerTask('build', ['sass', 'copy', 'uglify', 'zip']);
+	grunt.registerTask('test', ['sass', 'copy', 'watch']);
 };
