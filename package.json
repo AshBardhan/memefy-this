@@ -10,7 +10,10 @@
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-uglify": "^3.1.0",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-zip": "^0.17.1"
+    "grunt-sass": "^3.1.0",
+    "grunt-zip": "^0.17.1",
+    "load-grunt-config": "^4.0.1",
+    "node-sass": "^9.0.0"
   },
   "repository": {
     "type": "git",
