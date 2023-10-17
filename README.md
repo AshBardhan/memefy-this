@@ -1,3 +1,9 @@
+> **NOTE**
+>
+> This chrome extension was developed in `manifest_version: 2`. which is now deprecated by Google Chrome browsers. The migration to `manifest_version: 3` is currently under development. Once migrated, you will see this extension activated in Chrome soon.
+>
+> You can still use this extension locally in your Chrome browser by forking this repo, building it and loading it as the unpacked extension. Read the **Setup** section below for more details.
+
 # Memefy This
 
 ![app-logo](/docs/logo.png)
@@ -36,4 +42,4 @@ MIT Licensed
 
 Featured on [Product Hunt](https://www.producthunt.com/posts/memefy-this) and [Hacker News](https://news.ycombinator.com/item?id=15618018)
 
-Copyright (c) 2017 AshBardhan, [ashbardhan.github.io](https://ashbardhan.github.io)
+Copyright (c) 2023 AshBardhan, [ashbardhan.github.io](https://ashbardhan.github.io)
