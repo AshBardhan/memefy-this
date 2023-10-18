@@ -1,21 +1,20 @@
 {
   "name": "Memefy This",
-  "version": "0.1.4",
-  "manifest_version": 2,
+  "version": "0.1.5",
+  "manifest_version": 3,
   "description": "Make Memes Online Instantly",
-  "homepage_url": "http://ashbardhan.github.io",
+  "homepage_url": "https://www.producthunt.com/posts/memefy-this",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "background": {
-    "scripts" : [
-      "src/background/main.js"
-    ],
-    "persistent": false
+    "service_worker": "src/background/main.js"
   },
   "content_scripts": [
     {
@@ -30,11 +29,11 @@
   ],
   "permissions": [
     "tabs",
-    "<all_urls>",
     "contextMenus",
     "tabCapture"
   ],
-  "browser_action": {
+  "host_permissions": ["<all_urls>"],
+  "action": {
     "default_icon": {
       "19": "icons/icon19.png",
       "38": "icons/icon38.png"

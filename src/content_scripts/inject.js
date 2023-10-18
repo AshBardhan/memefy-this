@@ -131,6 +131,7 @@ new function () {
 			});
 		});
 
+		
 		[].forEach.call(self.memePosBtns, function (memePosBtn) {
 			memePosBtn.addEventListener('mousedown', function () {
 				var position = this.getAttribute('data-pos');
@@ -388,7 +389,7 @@ new function () {
 			}
 		}, true);
 
-		chrome.extension.onMessage.addListener(function (request, sender, sendResponse) {
+		chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 			if (request.text && (request.text == "make_meme")) {
 				self.trackGAEvent('image_dimensions', self.clickedEl.width + 'x' + self.clickedEl.height);
 				if (self.clickedEl.width >= self.minImageWidth && self.clickedEl.height >= self.minImageHeight) {
