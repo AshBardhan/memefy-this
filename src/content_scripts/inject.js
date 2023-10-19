@@ -249,14 +249,22 @@ new function () {
 	};
 
 	this.hideWarningBox = function () {
-		this.warningBox.style.display = 'none';
+		this.warningBox.style.opacity = 0;
+		this.warningBox.style.visibility = 'hidden';
 	};
 
 	this.showWarningBox = function () {
 		if (!this.warningBox) {
 			this.warningBox = document.createElement('div');
 			this.warningBox.classList.add('js-memefy_warning-box', '_memefy_warning-box');
-			this.warningBox.innerHTML = 'Can\'t Memefy image below <b>320 x 240 px</b> in size<span class="js-memefy_close-warning-box _memefy_close-warning-box">x</span>';
+			this.warningBox.innerHTML = `
+				Can't Memefy image below&nbsp;<b>320 x 240 px</b>&nbsp;in size
+				<span class="js-memefy_close-warning-box _memefy_close-warning-box">
+					<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 47.971 47.971" xml:space="preserve" width="8px" height="8px" fill="currentColor">
+						<path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88 c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242 C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879 s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/>
+					</svg>
+				</span>
+			`;
 			document.body.appendChild(this.warningBox);
 
 			this.warningBox.querySelector('.js-memefy_close-warning-box').addEventListener('click', function () {
@@ -266,7 +274,8 @@ new function () {
 			});
 		}
 
-		this.warningBox.style.display = 'block';
+		this.warningBox.style.opacity = 1;
+		this.warningBox.style.visibility = 'visible';
 		clearTimeout(this.warningBoxTimer);
 		this.warningBoxTimer = setTimeout(function () {
 			self.hideWarningBox();

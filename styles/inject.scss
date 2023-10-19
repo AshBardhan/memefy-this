@@ -21,26 +21,31 @@
 	background: #fee98e;
 	color: #b89a50;
 	padding: 10px;
-	padding-right: 34px;
-	border: 1px solid #eecf49;
-	border-bottom-width: 3px;
-	border-radius: 2px;
+	border: 2px solid #eecf49;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	visibility: hidden;
 }
 
 ._memefy_close-warning-box {
-	position: absolute;
-	right: 6px;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #fee98e;
-	background: #b89a50;
-	line-height: 18px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	height: 18px;
 	width: 18px;
-	font-size: 9px;
-	text-align: center;
+	margin-left: 10px;
 	cursor: pointer;
 	border-radius: 50%;
+	color: #fee98e;
+	background: #b89a50;
+
+	&:hover {
+		color: #f2e6ca;
+		background: #ccbc75;
+	}
 }
 
 ._memefy_meme-box-overlay {
