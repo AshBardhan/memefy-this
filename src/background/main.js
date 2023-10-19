@@ -23,24 +23,22 @@ chrome.contextMenus.create({
 });
 
 
-chrome.contextMenus.onClicked.addListener(function (info, tab) {
+chrome.contextMenus.onClicked.addListener((info, tab) => {
 	if (tab) {
-		chrome.tabs.sendMessage(tab.id, {text: "make_meme"}, function (response) {
+		chrome.tabs.sendMessage(tab.id, {text: "make_meme"}, response => {
 			//trackGAEvent('meme_menu-option', 'select');
 			return true;
 		});
 	}
 });
 
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	if (request.msg) {
 		if (request.msg === 'download_meme') {
 			chrome.tabs.captureVisibleTab(
 				null,
 				{format: 'png', quality: 100},
-				function (dataURL) {
-					sendResponse({imgSrc: dataURL});
-				}
+				dataURL => sendResponse({imgSrc: dataURL})
 			);
 			return true;
 		}
