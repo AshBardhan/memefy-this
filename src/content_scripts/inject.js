@@ -72,7 +72,7 @@ new function () {
 
 	this.setMemeTextOptionsBox = function (optionType) {
 		var memeGroupOptions = this.memeTextOptionsBox.querySelectorAll(`[data-${optionType}]`);
-		[].forEach.call(memeGroupOptions, function (memeGroupOption) {
+		[].forEach.call(memeGroupOptions, memeGroupOption => {
 			memeGroupOption.classList.remove('selected');
 			if (memeGroupOption.getAttribute(`data-${optionType}`) === self.memeTextOptions[self.selectedTextType][optionType]) {
 				memeGroupOption.classList.add('selected');
@@ -81,9 +81,7 @@ new function () {
 	};
 
 	this.setMemeBoxOption = function () {
-		['size', 'pos'].forEach(function (optionType) {
-			self.setMemeTextOptionsBox(optionType);
-		});
+		['size', 'pos'].forEach(optionType => self.setMemeTextOptionsBox(optionType));
 	};
 
 	this.resetMemeTextOptions = function (memeText) {
@@ -141,13 +139,11 @@ new function () {
 				self.selectedText.setAttribute('data-pos', position);
 				self.memeTextOptions[self.selectedTextType]['pos'] = position;
 				self.setMemeTextOptionsBox('pos');
-				setTimeout(function () {
-					self.selectedText.focus();
-				}, 0);
+				setTimeout(() => self.selectedText.focus(), 0);
 				self.trackGAEvent('meme_text-position', `${self.selectedTextType}-${position}`);
 			});
 
-			memePosBtn.addEventListener('mouseout', function () {
+			memePosBtn.addEventListener('mouseout', () => {
 				self.memeTextOptionSelected = false;
 			});
 		});
@@ -161,18 +157,16 @@ new function () {
 				self.setMemeTextOptionsBox('size');
 				self.setMemeTextHeight(self.selectedText);
 				self.setMemeTextOptionsBoxPosition();
-				setTimeout(function () {
-					self.selectedText.focus();
-				}, 0);
+				setTimeout(() => self.selectedText.focus(), 0);
 				self.trackGAEvent('meme_text-size', `${self.selectedTextType}-${fontSize}`);
 			});
 
-			memeSizeBtn.addEventListener('mouseout', function () {
+			memeSizeBtn.addEventListener('mouseout', () => {
 				self.memeTextOptionSelected = false;
 			});
 		});
 
-		self.memeCancelBtn.addEventListener('click', function () {
+		self.memeCancelBtn.addEventListener('click', () => {
 			self.memeBoxOverlay.parentNode.removeChild(self.memeBoxOverlay);
 			self.memeBox.parentNode.removeChild(self.memeBox);
 			document.body.classList.remove('_memefy_body');
@@ -204,43 +198,39 @@ new function () {
 
 			var d = new Date();
 			var fileName = [
-					'memefy',
-					d.getFullYear(),
-					d.getMonth() + 1,
-					d.getDate(),
-					d.getHours(),
-					d.getMinutes(),
-					d.getSeconds()
-				].join('-') + '.png';
+				'memefy',
+				d.getFullYear(),
+				d.getMonth() + 1,
+				d.getDate(),
+				d.getHours(),
+				d.getMinutes(),
+				d.getSeconds()
+			].join('-') + '.png';
 
 			var link = document.createElement('a');
 			link.href = c.toDataURL();
 			link.download = fileName;
 			document.body.appendChild(link);
-			link.addEventListener('click', function (e) {
-				e.stopPropagation();
-			});
+			link.addEventListener('click', e => e.stopPropagation());
 			link.click();
 			link.parentNode.removeChild(link);
 		}
 
-		self.memeDownloadBtn.addEventListener('click', function () {
-			setTimeout(function () {
-				chrome.runtime.sendMessage({msg: 'download_meme'}, function (response) {
+		self.memeDownloadBtn.addEventListener('click', () => {
+			setTimeout(() => {
+				chrome.runtime.sendMessage({msg: 'download_meme'}, response => {
 					if (response && response.imgSrc) {
 						var image = new Image();
 						image.src = response.imgSrc;
-						image.addEventListener('load', function () {
-							onImgLoad(image);
-						});
+						image.addEventListener('load', () => onImgLoad(image));
 						self.trackGAEvent('meme_download', 'click');
 					}
 				});
 			}, 0);
 		});
 
-		self.memeRefreshBtn.addEventListener('click', function () {
-			[].forEach.call(self.memeTexts, function (memeText) {
+		self.memeRefreshBtn.addEventListener('click', () => {
+			[].forEach.call(self.memeTexts, memeText => {
 				self.resetMemeTextOptions(memeText);
 				self.setMemeTextHeight(memeText);
 			});
@@ -267,7 +257,7 @@ new function () {
 			`;
 			document.body.appendChild(this.warningBox);
 
-			this.warningBox.querySelector('.js-memefy_close-warning-box').addEventListener('click', function () {
+			this.warningBox.querySelector('.js-memefy_close-warning-box').addEventListener('click', () => {
 				clearTimeout(self.warningBoxTimer);
 				self.hideWarningBox();
 				self.trackGAEvent('warning_box', 'close');
@@ -277,7 +267,7 @@ new function () {
 		this.warningBox.style.opacity = 1;
 		this.warningBox.style.visibility = 'visible';
 		clearTimeout(this.warningBoxTimer);
-		this.warningBoxTimer = setTimeout(function () {
+		this.warningBoxTimer = setTimeout(() => {
 			self.hideWarningBox();
 			self.trackGAEvent('warning_box', 'auto-close');
 		}, self.warningBoxExpiry);
@@ -394,14 +384,14 @@ new function () {
 	};
 
 	this.init = function () {
-		document.addEventListener("mousedown", function (event) {
+		document.addEventListener("mousedown", e => {
 			//right click
-			if (event.button == 2) {
-				self.clickedEl = event.target;
+			if (e.button == 2) {
+				self.clickedEl = e.target;
 			}
 		}, true);
 
-		chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+		chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 			if (request.text && (request.text == "make_meme")) {
 				self.trackGAEvent('image_dimensions', `${self.clickedEl.width}x${self.clickedEl.height}`);
 				if (self.clickedEl.width >= self.minImageWidth && self.clickedEl.height >= self.minImageHeight) {
