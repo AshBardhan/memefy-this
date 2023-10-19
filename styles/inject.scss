@@ -148,13 +148,16 @@
 
 #_memefy_meme-text-options {
 	position: absolute;
-	width: 230px;
-	text-align: center;
+	width: 250px;
+	height: 30px;
 	margin: 10px 0;
-	padding: 5px 0;
 	left: 50%;
 	transform: translateX(-50%);
-	display: none;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	opacity: 0;
+	visibility: hidden;
 	background: $color-gray;
 	border-radius: 4px;
 
@@ -168,26 +171,19 @@
 	}
 
 	&[type='top']::before {
-		top: -10px;
+		top: -9px;
 		border-bottom: 10px solid $color-gray;
 	}
 
 	&[type='bottom']::before {
-		bottom: -10px;
+		bottom: -9px;
 		border-top: 10px solid $color-gray;
 	}
 }
 
 ._memefy_btn {
-	display: inline-block;
-	margin: 0 2px;
+	display: inline-flex;
 	cursor: pointer;
-	border-radius: 4px;
-	text-align: center;
-	width: 24px;
-	height: 24px;
-	line-height: 24px;
-	padding: 2px;
 
 	svg {
 		width: 20px;

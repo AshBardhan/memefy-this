@@ -52,12 +52,14 @@ new function () {
 	};
 
 	this.showMemeTextOptionsBox = function () {
-		self.memeTextOptionsBox.style.display = 'block';
+		self.memeTextOptionsBox.style.opacity = 1;
+		self.memeTextOptionsBox.style.visibility = 'visible';
 		self.memeTextOptionsBox.setAttribute('type', self.selectedTextType);
 	};
 
 	this.hideMemeTextOptionsBox = function () {
-		this.memeTextOptionsBox.style.display = 'none';
+		self.memeTextOptionsBox.style.opacity = 0;
+		self.memeTextOptionsBox.style.visibility = 'hidden';
 	};
 
 	this.trackGAEvent = function (eventName, eventValue) {
@@ -300,8 +302,8 @@ new function () {
 		this.memeBox.style.height = `${memeBoxHeight}px`;
 
 		this.memeBox.style.backgroundImage = `url("${this.clickedEl.src}")`;
-		this.memeBox.innerHTML = 
-			`<textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text js-memefy_meme-text" tabindex="-1" data-type="top"></textarea>
+		this.memeBox.innerHTML = `
+			<textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text js-memefy_meme-text" tabindex="-1" data-type="top"></textarea>
 			<textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text  js-memefy_meme-text" tabindex="-1" data-type="bottom"></textarea>
 			<div id="_memefy_meme-text-options" class="js-memefy_meme-text-options">
                 <div class="_memefy_btn js-memefy_pos-btn" data-pos="left">
@@ -367,7 +369,8 @@ new function () {
 						</g>
 					</svg>
                 </li>
-			</ul>`;
+			</ul>
+		`;
 		document.body.appendChild(this.memeBox);
 
 		this.memeBoxOverlay = document.createElement('div');
