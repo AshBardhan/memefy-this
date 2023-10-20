@@ -16,6 +16,10 @@ module.exports = function (grunt) {
 				}
 			}
 		},
+		clean: {
+			'build' : ['dist/', 'memefy-this.zip'],
+			'test' : ['dist/']
+		},
 		copy: {
 			'folders': {
 				src: ['src/**', '_locales/**', 'icons/**'],
@@ -49,10 +53,11 @@ module.exports = function (grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-zip');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('build', ['sass', 'copy', 'zip']);
-	grunt.registerTask('test', ['sass', 'copy', 'watch']);
+	grunt.registerTask('build', ['clean:build', 'sass', 'copy', 'zip']);
+	grunt.registerTask('test', ['clean:test', 'sass', 'copy', 'watch']);
 };
