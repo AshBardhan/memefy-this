@@ -25,7 +25,7 @@ If you find it useful (I bet you will!), show your support by all means
 - Install all the required dependencies by running `yarn install`.
 - Create a new branch out off `master` for your fix/feature by running `git checkout -b new-feature`.
 - Build this project by running the following commands
-    - `grunt test` - This creates `dist` folder containing files (unminified version) for the chrome-extension and a watcher task.
+    - `grunt dev` - This creates `dist` folder containing files (unminified version) for the chrome-extension and a watcher task.
     - `grunt build` - This creates `dist` folder containing files (minified version) for the chrome-extension and its `.zip` file (only for admin purpose).
 - Install in your chrome by loading the generated `dist` folder as an [unpacked extension](http://techapple.net/2015/09/how-to-install-load-unpacked-extension-in-google-chrome-browser-os-chromebooks/).
 

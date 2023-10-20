@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 				indentType: 'tab',
 				sourceMap: false
 			},
-			dist: {
+			build: {
 				files: {
 					'src/content_scripts/inject.css': 'styles/inject.scss'
 				}
@@ -18,7 +18,7 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			'build' : ['dist/', 'memefy-this.zip'],
-			'test' : ['dist/']
+			'dev' : ['dist/']
 		},
 		copy: {
 			'folders': {
@@ -59,5 +59,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('build', ['clean:build', 'sass', 'copy', 'zip']);
-	grunt.registerTask('test', ['clean:test', 'sass', 'copy', 'watch']);
+	grunt.registerTask('dev', ['clean:dev', 'sass', 'copy', 'watch']);
 };
