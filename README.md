@@ -2,7 +2,7 @@
 
 ![app-logo](/docs/logo.png)
 
-The ultimate meme machine in form of a chrome-extension for making instant memes online.
+The ultimate meme machine in form of a chrome extension for making instant memes online.
 
 [Download](https://chrome.google.com/webstore/detail/memefy-this/iohemjpgjkgkfgfpiglpfpcclogkelcf) [View Demo](https://ashbardhan.github.io/memefy-this/)
 
@@ -16,11 +16,12 @@ If you find it useful (I bet you will!), show your support by all means
 ### Setup
 
 - [Fork this repo](https://help.github.com/articles/fork-a-repo) and clone it on your system.
+- Make sure that you're using node version **v18.7.0** for this application. Use [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) for switching to this node versions.
 - Install all the required dependencies by running `yarn install`.
 - Create a new branch out off `master` for your fix/feature by running `git checkout -b new-feature`.
 - Build this project by running the following commands
-    - `grunt dev` - This creates `dist` folder containing files (unminified version) for the chrome-extension and a watcher task.
-    - `grunt build` - This creates `dist` folder containing files (minified version) for the chrome-extension and its `.zip` file (only for admin purpose).
+    - `grunt dev` - This creates `dist` folder containing files (unminified version) for the chrome extension and a watcher task.
+    - `grunt build` - This creates `dist` folder containing files (minified version) for the chrome extension and its `.zip` file (only for admin purpose).
 - Install in your chrome by loading the generated `dist` folder as an [unpacked extension](http://techapple.net/2015/09/how-to-install-load-unpacked-extension-in-google-chrome-browser-os-chromebooks/).
 
 ### Things to remember
@@ -36,4 +37,4 @@ MIT Licensed
 
 Featured on [Product Hunt](https://www.producthunt.com/posts/memefy-this) and [Hacker News](https://news.ycombinator.com/item?id=15618018)
 
-Copyright (c) 2023 AshBardhan, [ashbardhan.github.io](https://ashbardhan.github.io)
+Copyright (c) 2024 Ashish Bardhan, [ashbardhan.github.io](https://ashbardhan.github.io)
