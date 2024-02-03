@@ -10,11 +10,15 @@ module.exports = function (grunt) {
 				indentType: 'tab',
 				sourceMap: false
 			},
-			dist: {
+			build: {
 				files: {
 					'src/content_scripts/inject.css': 'styles/inject.scss'
 				}
 			}
+		},
+		clean: {
+			'build' : ['dist/', 'memefy-this.zip'],
+			'dev' : ['dist/']
 		},
 		copy: {
 			'folders': {
@@ -49,10 +53,11 @@ module.exports = function (grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-zip');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('build', ['sass', 'copy', 'zip']);
-	grunt.registerTask('test', ['sass', 'copy', 'watch']);
+	grunt.registerTask('build', ['clean:build', 'sass', 'copy', 'zip']);
+	grunt.registerTask('dev', ['clean:dev', 'sass', 'copy', 'watch']);
 };
