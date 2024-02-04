@@ -14,7 +14,8 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "background": {
-    "service_worker": "src/service-worker.js"
+    "service_worker": "src/service-worker.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -28,6 +29,7 @@
     }
   ],
   "permissions": [
+    "storage",
     "contextMenus"
   ],
   "host_permissions": ["<all_urls>"],
