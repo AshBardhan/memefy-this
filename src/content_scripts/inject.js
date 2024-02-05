@@ -1,20 +1,14 @@
-
-const defaultPosition = 'center';
-const defaultFontSize = 'medium';
 let memeTextOptionSelected = false;
-const minImageWidth = 320;
-const minImageHeight = 240;
-const warningBoxExpiry = 10000;
 let memeTextOptions = {
 	'top': {
 		'size': defaultFontSize,
 		'pos': defaultPosition,
-		'defaultText': 'Top Text'
+		'defaultText': defaultTopText
 	},
 	'bottom': {
 		'size': defaultFontSize,
 		'pos': defaultPosition,
-		'defaultText': 'Bottom Text'
+		'defaultText': defaultBottomText
 	}
 };
 
