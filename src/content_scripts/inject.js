@@ -1,11 +1,11 @@
 
-var defaultPosition = 'center';
-var defaultFontSize = 'medium';
-var memeTextOptionSelected = false;
-var minImageWidth = 320;
-var minImageHeight = 240;
-var warningBoxExpiry = 10000;
-var memeTextOptions = {
+const defaultPosition = 'center';
+const defaultFontSize = 'medium';
+let memeTextOptionSelected = false;
+const minImageWidth = 320;
+const minImageHeight = 240;
+const warningBoxExpiry = 10000;
+let memeTextOptions = {
 	'top': {
 		'size': defaultFontSize,
 		'pos': defaultPosition,
@@ -18,10 +18,10 @@ var memeTextOptions = {
 	}
 };
 
-var clickedEl = selectedTextType = selectedText = null;
-var memeBox = memeBoxOverlay = memeTextOptionsBox = memeTexts = memePosBtns = memeSizeBtns = null;
-var memeDownloadBtn = memeRefreshBtn = memeCancelBtn = null;
-var warningBox = warningBoxTimer = null;
+let clickedEl = selectedTextType = selectedText = null;
+let memeBox = memeBoxOverlay = memeTextOptionsBox = memeTexts = memePosBtns = memeSizeBtns = null;
+let memeDownloadBtn = memeRefreshBtn = memeCancelBtn = null;
+let warningBox = warningBoxTimer = null;
 
 setMemeTextOptionsBoxPosition = function () {
 	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 20 : selectedText.offsetTop + selectedText.offsetHeight) + 'px';
@@ -29,8 +29,8 @@ setMemeTextOptionsBoxPosition = function () {
 
 adjustHeight = function (el, minHeight) {
 	// compute the height difference which is caused by border and outline
-	var outerHeight = parseInt(window.getComputedStyle(el).height, 10);
-	var diff = outerHeight - el.clientHeight;
+	const outerHeight = parseInt(window.getComputedStyle(el).height, 10);
+	const diff = outerHeight - el.clientHeight;
 
 	// set the height to 0 in case of it has to be shrinked
 	el.style.height = 0;
@@ -67,7 +67,7 @@ trackGAEvent = function (eventName, eventValue) {
 };
 
 setMemeTextOptionsBox = function (optionType) {
-	var memeGroupOptions = memeTextOptionsBox.querySelectorAll(`[data-${optionType}]`);
+	const memeGroupOptions = memeTextOptionsBox.querySelectorAll(`[data-${optionType}]`);
 	[].forEach.call(memeGroupOptions, memeGroupOption => {
 		memeGroupOption.classList.remove('selected');
 		if (memeGroupOption.getAttribute(`data-${optionType}`) === memeTextOptions[selectedTextType][optionType]) {
@@ -81,7 +81,7 @@ setMemeBoxOption = function () {
 };
 
 resetMemeTextOptions = function (memeText) {
-	var textType = memeText.getAttribute('data-type');
+	const textType = memeText.getAttribute('data-type');
 	memeText.value = memeTextOptions[textType]['defaultText'];
 	memeTextOptions[textType]['size'] = defaultFontSize;
 	memeTextOptions[textType]['pos'] = defaultPosition;
@@ -108,7 +108,7 @@ setMemeBoxContent = function () {
 		});
 
 		memeText.addEventListener('focus', function () {
-			var type = this.getAttribute('data-type');
+			const type = this.getAttribute('data-type');
 			this.classList.add('selected');
 			selectedTextType = type;
 			selectedText = memeText;
@@ -130,7 +130,7 @@ setMemeBoxContent = function () {
 	
 	[].forEach.call(memePosBtns, function (memePosBtn) {
 		memePosBtn.addEventListener('mousedown', function () {
-			var position = this.getAttribute('data-pos');
+			const position = this.getAttribute('data-pos');
 			memeTextOptionSelected = true;
 			selectedText.setAttribute('data-pos', position);
 			memeTextOptions[selectedTextType]['pos'] = position;
@@ -146,7 +146,7 @@ setMemeBoxContent = function () {
 
 	[].forEach.call(memeSizeBtns, function (memeSizeBtn) {
 		memeSizeBtn.addEventListener('mousedown', function () {
-			var fontSize = this.getAttribute('data-size');
+			const fontSize = this.getAttribute('data-size');
 			memeTextOptionSelected = true;
 			selectedText.setAttribute('data-size', fontSize);
 			memeTextOptions[selectedTextType]['size'] = fontSize;
@@ -170,15 +170,15 @@ setMemeBoxContent = function () {
 	});
 
 	function onImgLoad(image) {
-		var c = document.createElement('canvas');
-		var iframeBounds = memeBox.getBoundingClientRect();
+		let c = document.createElement('canvas');
+		const iframeBounds = memeBox.getBoundingClientRect();
 		c.width = iframeBounds.width;
 		c.height = iframeBounds.height;
 		c.style.display = 'none';
 
-		var devicePixelRatio = window.devicePixelRatio || 1;
+		const devicePixelRatio = window.devicePixelRatio || 1;
 
-		var ctx = c.getContext('2d');
+		let ctx = c.getContext('2d');
 		ctx.drawImage(
 			image,
 			iframeBounds.left * devicePixelRatio,
@@ -192,8 +192,8 @@ setMemeBoxContent = function () {
 		);
 		image.removeEventListener('load', onImgLoad);
 
-		var d = new Date();
-		var fileName = [
+		const d = new Date();
+		const fileName = [
 			'memefy',
 			d.getFullYear(),
 			d.getMonth() + 1,
@@ -203,7 +203,7 @@ setMemeBoxContent = function () {
 			d.getSeconds()
 		].join('-') + '.png';
 
-		var link = document.createElement('a');
+		let link = document.createElement('a');
 		link.href = c.toDataURL();
 		link.download = fileName;
 		document.body.appendChild(link);
@@ -216,7 +216,7 @@ setMemeBoxContent = function () {
 		setTimeout(() => {
 			chrome.runtime.sendMessage({msg: 'download_meme'}, response => {
 				if (response && response.imgSrc) {
-					var image = new Image();
+					let image = new Image();
 					image.src = response.imgSrc;
 					image.addEventListener('load', () => onImgLoad(image));
 					trackGAEvent('meme_download', 'click');
@@ -273,7 +273,7 @@ showWarningBox = function () {
 };
 
 setMemeBox = function () {
-	var clickedElWidth = clickedEl.width,
+	let clickedElWidth = clickedEl.width,
 		clickedElHeight = clickedEl.height,
 		windowWidth = window.innerWidth,
 		windowHeight = window.innerHeight,
