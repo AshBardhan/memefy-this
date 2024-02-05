@@ -17,11 +17,11 @@ let memeBox = memeBoxOverlay = memeTextOptionsBox = memeTexts = memePosBtns = me
 let memeDownloadBtn = memeRefreshBtn = memeCancelBtn = null;
 let warningBox = warningBoxTimer = null;
 
-setMemeTextOptionsBoxPosition = function () {
+function setMemeTextOptionsBoxPosition() {
 	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 20 : selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 };
 
-adjustHeight = function (el, minHeight) {
+function adjustHeight(el, minHeight) {
 	// compute the height difference which is caused by border and outline
 	const outerHeight = parseInt(window.getComputedStyle(el).height, 10);
 	const diff = outerHeight - el.clientHeight;
@@ -34,25 +34,25 @@ adjustHeight = function (el, minHeight) {
 	el.style.height = Math.max(minHeight, el.scrollHeight + diff) + 'px';
 };
 
-setMemeTextHeight = function (memeText) {
+function setMemeTextHeight(memeText) {
 	// we adjust height to the initial content
 	memeText.style.height = 0;
 	memeText.minHeight = memeText.scrollHeight;
 	adjustHeight(memeText, memeText.minHeight);
 };
 
-showMemeTextOptionsBox = function () {
+function showMemeTextOptionsBox() {
 	memeTextOptionsBox.style.opacity = 1;
 	memeTextOptionsBox.style.visibility = 'visible';
 	memeTextOptionsBox.setAttribute('type', selectedTextType);
 };
 
-hideMemeTextOptionsBox = function () {
+function hideMemeTextOptionsBox() {
 	memeTextOptionsBox.style.opacity = 0;
 	memeTextOptionsBox.style.visibility = 'hidden';
 };
 
-trackGAEvent = function (eventName, eventValue) {
+function trackGAEvent(eventName, eventValue) {
 	chrome.runtime.sendMessage({
 		msg: 'track_GA_event',
 		eventName: eventName,
@@ -60,7 +60,7 @@ trackGAEvent = function (eventName, eventValue) {
 	});
 };
 
-setMemeTextOptionsBox = function (optionType) {
+function setMemeTextOptionsBox(optionType) {
 	const memeGroupOptions = memeTextOptionsBox.querySelectorAll(`[data-${optionType}]`);
 	[].forEach.call(memeGroupOptions, memeGroupOption => {
 		memeGroupOption.classList.remove('selected');
@@ -70,11 +70,11 @@ setMemeTextOptionsBox = function (optionType) {
 	});
 };
 
-setMemeBoxOption = function () {
+function setMemeBoxOption() {
 	['size', 'pos'].forEach(optionType => setMemeTextOptionsBox(optionType));
 };
 
-resetMemeTextOptions = function (memeText) {
+function resetMemeTextOptions(memeText) {
 	const textType = memeText.getAttribute('data-type');
 	memeText.value = memeTextOptions[textType]['defaultText'];
 	memeTextOptions[textType]['size'] = defaultFontSize;
@@ -83,7 +83,7 @@ resetMemeTextOptions = function (memeText) {
 	memeText.setAttribute('data-size', memeTextOptions[textType]['size']);
 };
 
-setMemeBoxContent = function () {
+function setMemeBoxContent() {
 	memeTexts = memeBox.querySelectorAll('.js-memefy_meme-text');
 	memeTextOptionsBox = memeBox.querySelector('.js-memefy_meme-text-options');
 	memePosBtns = memeBox.querySelectorAll('.js-memefy_pos-btn');
@@ -228,12 +228,12 @@ setMemeBoxContent = function () {
 	});
 };
 
-hideWarningBox = function () {
+function hideWarningBox() {
 	warningBox.style.opacity = 0;
 	warningBox.style.visibility = 'hidden';
 };
 
-showWarningBox = function () {
+function showWarningBox() {
 	if (!warningBox) {
 		warningBox = document.createElement('div');
 		warningBox.classList.add('js-memefy_warning-box', '_memefy_warning-box');
@@ -266,7 +266,7 @@ showWarningBox = function () {
 	trackGAEvent('warning_meme_height', `${clickedEl.height}px`);
 };
 
-setMemeBox = function () {
+function setMemeBox() {
 	let clickedElWidth = clickedEl.width,
 		clickedElHeight = clickedEl.height,
 		windowWidth = window.innerWidth,
