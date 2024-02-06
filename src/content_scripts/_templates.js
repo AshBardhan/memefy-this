@@ -1,4 +1,4 @@
-const memeBoxTemplate  = `
+const memePopupTemplate  = `
     <textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text js-memefy_meme-text" tabindex="1" data-type="top"></textarea>
     <textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text  js-memefy_meme-text" tabindex="1" data-type="bottom"></textarea>
     <div id="_memefy_meme-text-options" class="js-memefy_meme-text-options">
@@ -68,7 +68,7 @@ const memeBoxTemplate  = `
     </ul>
 `;
 
-const warningBoxTemplate = `
+const warningPopupTemplate = `
     Can't Memefy image below&nbsp;<b>320 x 240 px</b>&nbsp;in size
     <span class="js-memefy_close-warning-box _memefy_close-warning-box">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 47.971 47.971" xml:space="preserve" width="8px" height="8px" fill="currentColor">

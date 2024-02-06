@@ -14,7 +14,7 @@ const memeTextPosition = {
 
 const minImageWidth = 320;
 const minImageHeight = 240;
-const warningBoxExpiry = 10000;
+const warningPopupExpiry = 10000;
 const defaultPosition = memeTextPosition.CENTER;
 const defaultFontSize = memeTextSize.MEDIUM;
 const defaultTopText = 'Top Text';

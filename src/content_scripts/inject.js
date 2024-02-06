@@ -12,15 +12,17 @@ let memeTextOptions = {
 	}
 };
 
-let clickedEl = selectedTextType = selectedText = null;
-let memeBox = memeBoxOverlay = memeTextOptionsBox = memeTexts = memePosBtns = memeSizeBtns = null;
+let selectedImage = selectedTextType = selectedText = null;
+let memePopup = memePopupOverlay = memeTextOptionsBox = memeTexts = memePosBtns = memeSizeBtns = null;
 let memeDownloadBtn = memeRefreshBtn = memeCancelBtn = null;
-let warningBox = warningBoxTimer = null;
+let warningPopup = warningPopupTimer = null;
 
+// Sets the position of meme options box based on type of text
 function setMemeTextOptionsBoxPosition() {
 	memeTextOptionsBox.style.top = (selectedTextType === 'bottom' ? selectedText.offsetTop - memeTextOptionsBox.offsetHeight - 20 : selectedText.offsetTop + selectedText.offsetHeight) + 'px';
 };
 
+// Adjusts the height of current meme text element
 function adjustHeight(el, minHeight) {
 	// compute the height difference which is caused by border and outline
 	const outerHeight = parseInt(window.getComputedStyle(el).height, 10);
@@ -34,6 +36,7 @@ function adjustHeight(el, minHeight) {
 	el.style.height = Math.max(minHeight, el.scrollHeight + diff) + 'px';
 };
 
+// Sets the height of current meme text element
 function setMemeTextHeight(memeText) {
 	// we adjust height to the initial content
 	memeText.style.height = 0;
@@ -41,17 +44,19 @@ function setMemeTextHeight(memeText) {
 	adjustHeight(memeText, memeText.minHeight);
 };
 
+// Shows meme text options box
 function showMemeTextOptionsBox() {
 	memeTextOptionsBox.style.opacity = 1;
 	memeTextOptionsBox.style.visibility = 'visible';
-	memeTextOptionsBox.setAttribute('type', selectedTextType);
 };
 
+// Hides meme text options box
 function hideMemeTextOptionsBox() {
 	memeTextOptionsBox.style.opacity = 0;
 	memeTextOptionsBox.style.visibility = 'hidden';
 };
 
+// Sends a GA tracking event handled by the 'service-worker'
 function trackGAEvent(eventName, eventValue) {
 	chrome.runtime.sendMessage({
 		msg: 'track_GA_event',
@@ -60,9 +65,10 @@ function trackGAEvent(eventName, eventValue) {
 	});
 };
 
+// Sets/Unsets various text option buttons based on current settings
 function setMemeTextOptionsBox(optionType) {
 	const memeGroupOptions = memeTextOptionsBox.querySelectorAll(`[data-${optionType}]`);
-	Array.from(memeGroupOptions).forEach(memeGroupOption => {
+	memeGroupOptions.forEach(memeGroupOption => {
 		memeGroupOption.classList.remove('selected');
 		if (memeGroupOption.getAttribute(`data-${optionType}`) === memeTextOptions[selectedTextType][optionType]) {
 			memeGroupOption.classList.add('selected');
@@ -70,10 +76,7 @@ function setMemeTextOptionsBox(optionType) {
 	});
 };
 
-function setMemeBoxOption() {
-	['size', 'pos'].forEach(optionType => setMemeTextOptionsBox(optionType));
-};
-
+// Resets the meme to default settings
 function resetMemeTextOptions(memeText) {
 	const textType = memeText.getAttribute('data-type');
 	memeText.value = memeTextOptions[textType]['defaultText'];
@@ -83,16 +86,17 @@ function resetMemeTextOptions(memeText) {
 	memeText.setAttribute('data-size', memeTextOptions[textType]['size']);
 };
 
-function setMemeBoxContent() {
-	memeTexts = memeBox.querySelectorAll('.js-memefy_meme-text');
-	memeTextOptionsBox = memeBox.querySelector('.js-memefy_meme-text-options');
-	memePosBtns = memeBox.querySelectorAll('.js-memefy_pos-btn');
-	memeSizeBtns = memeBox.querySelectorAll('.js-memefy_size-btn');
-	memeDownloadBtn = memeBox.querySelector('.js-memefy_download-meme');
-	memeCancelBtn = memeBox.querySelector('.js-memefy_cancel-meme');
-	memeRefreshBtn = memeBox.querySelector('.js-memefy_refresh-meme');
+// Adds event listeners on various components of the meme popup
+function setMemePopupEvents() {
+	memeTexts = memePopup.querySelectorAll('.js-memefy_meme-text');
+	memeTextOptionsBox = memePopup.querySelector('.js-memefy_meme-text-options');
+	memePosBtns = memePopup.querySelectorAll('.js-memefy_pos-btn');
+	memeSizeBtns = memePopup.querySelectorAll('.js-memefy_size-btn');
+	memeDownloadBtn = memePopup.querySelector('.js-memefy_download-meme');
+	memeCancelBtn = memePopup.querySelector('.js-memefy_cancel-meme');
+	memeRefreshBtn = memePopup.querySelector('.js-memefy_refresh-meme');
 
-	Array.from(memeTexts).forEach(memeText => {
+	memeTexts.forEach(memeText => {
 		resetMemeTextOptions(memeText);
 		setMemeTextHeight(memeText);
 
@@ -106,7 +110,8 @@ function setMemeBoxContent() {
 			this.classList.add('selected');
 			selectedTextType = type;
 			selectedText = memeText;
-			setMemeBoxOption();
+			setMemeTextOptionsBox('size');
+			setMemeTextOptionsBox('pos');
 			showMemeTextOptionsBox();
 			setMemeTextOptionsBoxPosition();
 			trackGAEvent('meme_text-focus', selectedTextType);
@@ -121,7 +126,7 @@ function setMemeBoxContent() {
 		});
 	});
 	
-	Array.from(memePosBtns).forEach(memePosBtn => {
+	memePosBtns.forEach(memePosBtn => {
 		memePosBtn.addEventListener('mousedown', function () {
 			const position = this.getAttribute('data-pos');
 			memeTextOptionSelected = true;
@@ -137,7 +142,7 @@ function setMemeBoxContent() {
 		});
 	});
 
-	Array.from(memeSizeBtns).forEach(memeSizeBtn => {
+	memeSizeBtns.forEach(memeSizeBtn => {
 		memeSizeBtn.addEventListener('mousedown', function () {
 			const fontSize = this.getAttribute('data-size');
 			memeTextOptionSelected = true;
@@ -156,15 +161,15 @@ function setMemeBoxContent() {
 	});
 
 	memeCancelBtn.addEventListener('click', () => {
-		memeBoxOverlay.parentNode.removeChild(memeBoxOverlay);
-		memeBox.parentNode.removeChild(memeBox);
+		memePopupOverlay.parentNode.removeChild(memePopupOverlay);
+		memePopup.parentNode.removeChild(memePopup);
 		document.body.classList.remove('_memefy_body');
 		trackGAEvent('meme_cancel', 'click');
 	});
 
 	function onImgLoad(image) {
 		let c = document.createElement('canvas');
-		const iframeBounds = memeBox.getBoundingClientRect();
+		const iframeBounds = memePopup.getBoundingClientRect();
 		c.width = iframeBounds.width;
 		c.height = iframeBounds.height;
 		c.style.display = 'none';
@@ -208,7 +213,7 @@ function setMemeBoxContent() {
 	memeDownloadBtn.addEventListener('click', () => {
 		setTimeout(() => {
 			chrome.runtime.sendMessage({msg: 'download_meme'}, response => {
-				if (response && response.imgSrc) {
+				if (response?.imgSrc) {
 					let image = new Image();
 					image.src = response.imgSrc;
 					image.addEventListener('load', () => onImgLoad(image));
@@ -219,7 +224,7 @@ function setMemeBoxContent() {
 	});
 
 	memeRefreshBtn.addEventListener('click', () => {
-		Array.from(memeTexts).forEach(memeText => {
+		memeTexts.forEach(memeText => {
 			resetMemeTextOptions(memeText);
 			setMemeTextHeight(memeText);
 		});
@@ -227,91 +232,97 @@ function setMemeBoxContent() {
 	});
 };
 
-function hideWarningBox() {
-	warningBox.style.opacity = 0;
-	warningBox.style.visibility = 'hidden';
+// Hides warning popup after manual or automatic close
+function hideWarningPopup() {
+	warningPopup.style.opacity = 0;
+	warningPopup.style.visibility = 'hidden';
 };
 
-function showWarningBox() {
-	if (!warningBox) {
-		warningBox = document.createElement('div');
-		warningBox.classList.add('js-memefy_warning-box', '_memefy_warning-box');
-		warningBox.innerHTML = warningBoxTemplate;
-		document.body.appendChild(warningBox);
+// Shows warning popup when the selected image is not qualified for generating meme
+function showWarningPopup() {
+	if (!warningPopup) {
+		warningPopup = document.createElement('div');
+		warningPopup.classList.add('js-memefy_warning-box', '_memefy_warning-box');
+		warningPopup.innerHTML = warningPopupTemplate;
+		document.body.appendChild(warningPopup);
 
-		warningBox.querySelector('.js-memefy_close-warning-box').addEventListener('click', () => {
-			clearTimeout(warningBoxTimer);
-			hideWarningBox();
+		warningPopup.querySelector('.js-memefy_close-warning-box').addEventListener('click', () => {
+			clearTimeout(warningPopupTimer);
+			hideWarningPopup();
 			trackGAEvent('warning_box', 'close');
 		});
 	}
 
-	warningBox.style.opacity = 1;
-	warningBox.style.visibility = 'visible';
-	clearTimeout(warningBoxTimer);
-	warningBoxTimer = setTimeout(() => {
-		hideWarningBox();
+	warningPopup.style.opacity = 1;
+	warningPopup.style.visibility = 'visible';
+	clearTimeout(warningPopupTimer);
+	warningPopupTimer = setTimeout(() => {
+		hideWarningPopup();
 		trackGAEvent('warning_box', 'auto-close');
-	}, warningBoxExpiry);
+	}, warningPopupExpiry);
+
 	trackGAEvent('warning_box', 'show');
-	trackGAEvent('warning_meme_width', `${clickedEl.width}px`);
-	trackGAEvent('warning_meme_height', `${clickedEl.height}px`);
+	trackGAEvent('warning_meme_width', `${selectedImage.width}px`);
+	trackGAEvent('warning_meme_height', `${selectedImage.height}px`);
 };
 
-function setMemeBox() {
-	let clickedElWidth = clickedEl.width,
-		clickedElHeight = clickedEl.height,
+// Creates a popup where the meme can be edited and downloaded
+function createMemePopup() {
+	let selectedImageWidth = selectedImage.width,
+		selectedImageHeight = selectedImage.height,
 		windowWidth = window.innerWidth,
 		windowHeight = window.innerHeight,
-		memeBoxWidth = clickedElWidth,
-		memeBoxHeight = clickedElHeight;
+		memePopupWidth = selectedImageWidth,
+		memePopupHeight = selectedImageHeight;
 
-	memeBox = document.createElement('div');
-	memeBox.classList.add('js-memefy_meme-box', '_memefy_meme-box');
+	memePopup = document.createElement('div');
+	memePopup.classList.add('js-memefy_meme-box', '_memefy_meme-box');
 
-	if (memeBoxWidth >= windowWidth) {
-		memeBoxWidth = windowWidth - 30;
-		memeBoxHeight = clickedElHeight / clickedElWidth * memeBoxWidth;
+	if (memePopupWidth >= windowWidth) {
+		memePopupWidth = windowWidth - 30;
+		memePopupHeight = selectedImageHeight / selectedImageWidth * memePopupWidth;
 	}
 
-	if (memeBoxHeight >= windowHeight) {
-		memeBoxHeight = windowHeight - 10;
-		memeBoxWidth = clickedElWidth / clickedElHeight * memeBoxHeight;
+	if (memePopupHeight >= windowHeight) {
+		memePopupHeight = windowHeight - 10;
+		memePopupWidth = selectedImageWidth / selectedImageHeight * memePopupHeight;
 	}
 
-	memeBox.style.width = `${memeBoxWidth}px`;
-	memeBox.style.height = `${memeBoxHeight}px`;
+	memePopup.style.width = `${memePopupWidth}px`;
+	memePopup.style.height = `${memePopupHeight}px`;
 
-	memeBox.style.backgroundImage = `url("${clickedEl.src}")`;
-	memeBox.innerHTML= memeBoxTemplate;
-	document.body.appendChild(memeBox);
+	memePopup.style.backgroundImage = `url("${selectedImage.src}")`;
+	memePopup.innerHTML= memePopupTemplate;
+	document.body.appendChild(memePopup);
 
-	memeBoxOverlay = document.createElement('div');
-	memeBoxOverlay.classList.add('js-memefy_meme-box-overlay', '_memefy_meme-box-overlay');
-	document.body.appendChild(memeBoxOverlay);
+	memePopupOverlay = document.createElement('div');
+	memePopupOverlay.classList.add('js-memefy_meme-box-overlay', '_memefy_meme-box-overlay');
+	document.body.appendChild(memePopupOverlay);
 	document.body.classList.add('_memefy_body');
 	trackGAEvent('meme_box', 'show');
-	trackGAEvent('meme_width', `${memeBoxWidth}px`);
-	trackGAEvent('meme_height', `${memeBoxHeight}px`);
+	trackGAEvent('meme_width', `${memePopupWidth}px`);
+	trackGAEvent('meme_height', `${memePopupHeight}px`);
 
-	setMemeBoxContent();
+	setMemePopupEvents();
 };
 
+// Event listener that stores the target element (selected image) once you right-click on it
 document.addEventListener("mousedown", e => {
-	//right click
 	if (e.button == 2) {
-		clickedEl = e.target;
+		selectedImage = e.target;
 	}
 }, true);
 
+// Event listener that is sent from 'service-worker' to create meme
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	if (request.text && (request.text == "make_meme")) {
-		trackGAEvent('image_dimensions', `${clickedEl.width}x${clickedEl.height}`);
-		if (clickedEl.width >= minImageWidth && clickedEl.height >= minImageHeight) {
-			setMemeBox();
-			sendResponse({ele: clickedEl.innerHTML});
+	if (request?.text == "make_meme") {
+		trackGAEvent('image_dimensions', `${selectedImage.width}x${selectedImage.height}`);
+		// Check whether the selected image is qualified to create the meme
+		if (selectedImage.width >= minImageWidth && selectedImage.height >= minImageHeight) {
+			createMemePopup();
+			sendResponse({ele: selectedImage.innerHTML});
 		} else {
-			showWarningBox();
+			showWarningPopup();
 		}
 		return true;
 	}
