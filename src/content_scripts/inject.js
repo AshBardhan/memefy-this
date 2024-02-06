@@ -62,7 +62,7 @@ function trackGAEvent(eventName, eventValue) {
 
 function setMemeTextOptionsBox(optionType) {
 	const memeGroupOptions = memeTextOptionsBox.querySelectorAll(`[data-${optionType}]`);
-	[].forEach.call(memeGroupOptions, memeGroupOption => {
+	Array.from(memeGroupOptions).forEach(memeGroupOption => {
 		memeGroupOption.classList.remove('selected');
 		if (memeGroupOption.getAttribute(`data-${optionType}`) === memeTextOptions[selectedTextType][optionType]) {
 			memeGroupOption.classList.add('selected');
@@ -92,7 +92,7 @@ function setMemeBoxContent() {
 	memeCancelBtn = memeBox.querySelector('.js-memefy_cancel-meme');
 	memeRefreshBtn = memeBox.querySelector('.js-memefy_refresh-meme');
 
-	[].forEach.call(memeTexts, function (memeText) {
+	Array.from(memeTexts).forEach(memeText => {
 		resetMemeTextOptions(memeText);
 		setMemeTextHeight(memeText);
 
@@ -120,9 +120,8 @@ function setMemeBoxContent() {
 			}
 		});
 	});
-
 	
-	[].forEach.call(memePosBtns, function (memePosBtn) {
+	Array.from(memePosBtns).forEach(memePosBtn => {
 		memePosBtn.addEventListener('mousedown', function () {
 			const position = this.getAttribute('data-pos');
 			memeTextOptionSelected = true;
@@ -138,7 +137,7 @@ function setMemeBoxContent() {
 		});
 	});
 
-	[].forEach.call(memeSizeBtns, function (memeSizeBtn) {
+	Array.from(memeSizeBtns).forEach(memeSizeBtn => {
 		memeSizeBtn.addEventListener('mousedown', function () {
 			const fontSize = this.getAttribute('data-size');
 			memeTextOptionSelected = true;
@@ -220,7 +219,7 @@ function setMemeBoxContent() {
 	});
 
 	memeRefreshBtn.addEventListener('click', () => {
-		[].forEach.call(memeTexts, memeText => {
+		Array.from(memeTexts).forEach(memeText => {
 			resetMemeTextOptions(memeText);
 			setMemeTextHeight(memeText);
 		});
