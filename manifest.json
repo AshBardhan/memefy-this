@@ -24,8 +24,8 @@
         "src/content_scripts/inject.css"
       ],
       "js": [
-        "src/content_scripts/constants.js",
-        "src/content_scripts/templates.js",
+        "src/content_scripts/_constants.js",
+        "src/content_scripts/_templates.js",
         "src/content_scripts/inject.js"
       ]
     }
