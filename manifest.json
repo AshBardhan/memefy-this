@@ -25,6 +25,7 @@
       ],
       "js": [
         "src/content_scripts/constants.js",
+        "src/content_scripts/templates.js",
         "src/content_scripts/inject.js"
       ]
     }
