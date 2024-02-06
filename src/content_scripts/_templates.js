@@ -2,42 +2,42 @@ const memeBoxTemplate  = `
     <textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text js-memefy_meme-text" tabindex="1" data-type="top"></textarea>
     <textarea rows="1" spellcheck="false" title="Click here to change text" class="_memefy_meme-text  js-memefy_meme-text" tabindex="1" data-type="bottom"></textarea>
     <div id="_memefy_meme-text-options" class="js-memefy_meme-text-options">
-        <div class="_memefy_btn js-memefy_pos-btn" data-pos="left">
+        <div class="_memefy_btn js-memefy_pos-btn" data-pos="${memeTextPosition.LEFT}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" xml:space="preserve">
                 <path d="M0,5 h24"/><path d="M0,12 h18"/><path d="M0,19 h12"/>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_pos-btn" data-pos="center">
+        <div class="_memefy_btn js-memefy_pos-btn" data-pos="${memeTextPosition.CENTER}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <path d="M0,5 h24"/><path d="M3,12 h18"/><path d="M6,19 h12"/>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_pos-btn" data-pos="right">
+        <div class="_memefy_btn js-memefy_pos-btn" data-pos="${memeTextPosition.RIGHT}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <path d="M0,5 h24"/><path d="M6,12 h18"/><path d="M12,19 h12"/>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_size-btn" data-size="xsmall">
+        <div class="_memefy_btn js-memefy_size-btn" data-size="${memeTextSize.X_SMALL}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <text x="6" y="16" font-family="Helvetica" font-size="8">XS</text>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_size-btn" data-size="small">
+        <div class="_memefy_btn js-memefy_size-btn" data-size="${memeTextSize.SMALL}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <text x="8" y="16" font-family="Helvetica" font-size="10">S</text>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_size-btn" data-size="medium">
+        <div class="_memefy_btn js-memefy_size-btn" data-size="${memeTextSize.MEDIUM}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <text x="7" y="16" font-family="Helvetica" font-size="12">M</text>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_size-btn" data-size="large">
+        <div class="_memefy_btn js-memefy_size-btn" data-size="${memeTextSize.LARGE}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <text x="7" y="17" font-family="Helvetica" font-size="14">L</text>
             </svg>
         </div>
-        <div class="_memefy_btn js-memefy_size-btn" data-size="xlarge">
+        <div class="_memefy_btn js-memefy_size-btn" data-size="${memeTextSize.X_LARGE}">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xml:space="preserve">
                 <text x="2" y="18" font-family="Helvetica" font-size="16">XL</text>
             </svg>

@@ -10,7 +10,7 @@ const memeTextPosition = {
     LEFT: 'left',
     CENTER: 'center',
     RIGHT: 'right'
-}
+};
 
 const minImageWidth = 320;
 const minImageHeight = 240;
