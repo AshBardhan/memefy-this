@@ -57,11 +57,11 @@ function hideMemeTextOptionsBox() {
 };
 
 // Sends a GA tracking event handled by the 'service-worker'
-function trackGAEvent(eventName, eventValue) {
+function trackGAEvent(eventName, eventParams = {}) {
 	chrome.runtime.sendMessage({
 		msg: 'track_GA_event',
-		eventName: eventName,
-		eventValue: eventValue
+		eventName,
+		eventParams
 	});
 };
 
@@ -160,7 +160,7 @@ function setMemePopupEvents() {
 		memePopupOverlay.parentNode.removeChild(memePopupOverlay);
 		memePopup.parentNode.removeChild(memePopup);
 		document.body.classList.remove('_memefy_body');
-		trackGAEvent('meme_cancel', 'click');
+		trackGAEvent('meme_cancel');
 	});
 
 	function onImgLoad(image) {
@@ -213,7 +213,7 @@ function setMemePopupEvents() {
 					let image = new Image();
 					image.src = response.imgSrc;
 					image.addEventListener('load', () => onImgLoad(image));
-					trackGAEvent('meme_download', 'click');
+					trackGAEvent('meme_download');
 				}
 			});
 		}, 0);
@@ -224,7 +224,7 @@ function setMemePopupEvents() {
 			resetMemeTextOptions(memeText);
 			setMemeTextHeight(memeText);
 		});
-		trackGAEvent('meme_refresh', 'click');
+		trackGAEvent('meme_refresh');
 	});
 };
 
@@ -255,7 +255,7 @@ function showWarningPopup() {
 		hideWarningPopup();
 	}, warningPopupExpiry);
 
-	trackGAEvent('warning_box', 'show');
+	trackGAEvent('warning_show');
 };
 
 // Creates a popup where the meme can be edited and downloaded
@@ -291,10 +291,10 @@ function createMemePopup() {
 	memePopupOverlay.classList.add('js-memefy_meme-box-overlay', '_memefy_meme-box-overlay');
 	document.body.appendChild(memePopupOverlay);
 	document.body.classList.add('_memefy_body');
-	trackGAEvent('meme_box', 'show');
-	trackGAEvent('meme_width', `${memePopupWidth}px`);
-	trackGAEvent('meme_height', `${memePopupHeight}px`);
-
+	trackGAEvent('meme_show', {
+		'width': `${memePopupWidth}px`,
+		'height': `${memePopupHeight}px`
+	});
 	setMemePopupEvents();
 };
 
@@ -307,9 +307,11 @@ document.addEventListener("mousedown", e => {
 
 // Event listener that is sent from 'service-worker' to create meme
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	if (request?.text == "make_meme") {	
-		trackGAEvent('image_width', `${selectedImage.width}px`);
-		trackGAEvent('image_height', `${selectedImage.height}px`);
+	if (request?.msg === "make_meme") {
+		trackGAEvent('image_select', {
+			'width': `${selectedImage.width}px`,
+			'height': `${selectedImage.height}px`
+		});
 		// Check whether the selected image is qualified to create the meme
 		if (selectedImage.width >= minImageWidth && selectedImage.height >= minImageHeight) {
 			createMemePopup();
