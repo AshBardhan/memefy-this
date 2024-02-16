@@ -306,7 +306,7 @@ document.addEventListener("mousedown", e => {
 }, true);
 
 // Event listener that is sent from 'service-worker' to create meme
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
 	if (request?.msg === "make_meme") {
 		trackGAEvent('image_select', {
 			'width': `${selectedImage.width}px`,
