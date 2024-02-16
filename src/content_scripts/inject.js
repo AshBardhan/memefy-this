@@ -114,14 +114,12 @@ function setMemePopupEvents() {
 			setMemeTextOptionsBox('pos');
 			showMemeTextOptionsBox();
 			setMemeTextOptionsBoxPosition();
-			trackGAEvent('meme_text-focus', selectedTextType);
 		});
 
 		memeText.addEventListener('blur', function () {
 			if (!memeTextOptionSelected) {
 				this.classList.remove('selected');
 				hideMemeTextOptionsBox();
-				trackGAEvent('meme_text-blur', selectedTextType);
 			}
 		});
 	});
@@ -134,7 +132,6 @@ function setMemePopupEvents() {
 			memeTextOptions[selectedTextType]['pos'] = position;
 			setMemeTextOptionsBox('pos');
 			setTimeout(() => selectedText.focus(), 0);
-			trackGAEvent('meme_text-position', `${selectedTextType}-${position}`);
 		});
 
 		memePosBtn.addEventListener('mouseout', () => {
@@ -152,7 +149,6 @@ function setMemePopupEvents() {
 			setMemeTextHeight(selectedText);
 			setMemeTextOptionsBoxPosition();
 			setTimeout(() => selectedText.focus(), 0);
-			trackGAEvent('meme_text-size', `${selectedTextType}-${fontSize}`);
 		});
 
 		memeSizeBtn.addEventListener('mouseout', () => {
@@ -249,7 +245,6 @@ function showWarningPopup() {
 		warningPopup.querySelector('.js-memefy_close-warning-box').addEventListener('click', () => {
 			clearTimeout(warningPopupTimer);
 			hideWarningPopup();
-			trackGAEvent('warning_box', 'close');
 		});
 	}
 
@@ -258,12 +253,9 @@ function showWarningPopup() {
 	clearTimeout(warningPopupTimer);
 	warningPopupTimer = setTimeout(() => {
 		hideWarningPopup();
-		trackGAEvent('warning_box', 'auto-close');
 	}, warningPopupExpiry);
 
 	trackGAEvent('warning_box', 'show');
-	trackGAEvent('warning_meme_width', `${selectedImage.width}px`);
-	trackGAEvent('warning_meme_height', `${selectedImage.height}px`);
 };
 
 // Creates a popup where the meme can be edited and downloaded
@@ -315,8 +307,9 @@ document.addEventListener("mousedown", e => {
 
 // Event listener that is sent from 'service-worker' to create meme
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	if (request?.text == "make_meme") {
-		trackGAEvent('image_dimensions', `${selectedImage.width}x${selectedImage.height}`);
+	if (request?.text == "make_meme") {	
+		trackGAEvent('image_width', `${selectedImage.width}px`);
+		trackGAEvent('image_height', `${selectedImage.height}px`);
 		// Check whether the selected image is qualified to create the meme
 		if (selectedImage.width >= minImageWidth && selectedImage.height >= minImageHeight) {
 			createMemePopup();
