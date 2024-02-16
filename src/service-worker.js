@@ -10,12 +10,12 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 // Event listener once the context menu option is selected
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+chrome.contextMenus.onClicked.addListener((_info, tab) => {
 	chrome.tabs.sendMessage(tab.id, {msg: "make_meme"});
 });
 
 // Event listener that is sent from 'content_scripts' to download the generated meme or track GA event
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
 	if (request?.msg) {
 		if (request.msg === 'download_meme') {
 			chrome.tabs.captureVisibleTab(null, {format: 'png', quality: 100}, dataURL => sendResponse({imgSrc: dataURL}));
