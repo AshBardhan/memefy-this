@@ -14,7 +14,8 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "background": {
-    "service_worker": "src/service-worker.js"
+    "service_worker": "src/service-worker.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -23,11 +24,14 @@
         "src/content_scripts/inject.css"
       ],
       "js": [
+        "src/content_scripts/_constants.js",
+        "src/content_scripts/_templates.js",
         "src/content_scripts/inject.js"
       ]
     }
   ],
   "permissions": [
+    "storage",
     "contextMenus"
   ],
   "host_permissions": ["<all_urls>"],

@@ -1,50 +1,29 @@
-// var _AnalyticsCode = 'UA-54569024-2';
-// var _gaq = _gaq || [];
-// _gaq.push(['_setAccount', _AnalyticsCode]);
-// _gaq.push(['_trackPageview']);
+import Analytics from './utils/google-analytics.js';
 
-// (function () {
-// 	var ga = document.createElement('script');
-// 	ga.type = 'text/javascript';
-// 	ga.async = true;
-// 	ga.src = 'https://ssl.google-analytics.com/ga.js';
-// 	var s = document.getElementsByTagName('script')[0];
-// 	s.parentNode.insertBefore(ga, s);
-// })();
-
-// function trackGAEvent(eventName, eventValue) {
-// 	_gaq.push(['_trackEvent', eventName, eventValue]);
-// }
-
-chrome.contextMenus.create({
-	id: "myContextMenu",
-	title: "Memefy This Image",
-	contexts: ["image"]
+// Creates a context menu option that allows your generate meme from the selected image
+chrome.runtime.onInstalled.addListener(() => {	
+	chrome.contextMenus.create({
+		id: "myContextMenu",
+		title: "Memefy This Image",
+		contexts: ["image"]
+	});
 });
 
-
-chrome.contextMenus.onClicked.addListener((info, tab) => {
-	if (tab) {
-		chrome.tabs.sendMessage(tab.id, {text: "make_meme"}, response => {
-			//trackGAEvent('meme_menu-option', 'select');
-			return true;
-		});
-	}
+// Event listener once the context menu option is selected
+chrome.contextMenus.onClicked.addListener((_info, tab) => {
+	chrome.tabs.sendMessage(tab.id, {msg: "make_meme"});
 });
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	if (request.msg) {
+// Event listener that is sent from 'content_scripts' to download the generated meme or track GA event
+chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
+	if (request?.msg) {
 		if (request.msg === 'download_meme') {
-			chrome.tabs.captureVisibleTab(
-				null,
-				{format: 'png', quality: 100},
-				dataURL => sendResponse({imgSrc: dataURL})
-			);
+			chrome.tabs.captureVisibleTab(null, {format: 'png', quality: 100}, dataURL => sendResponse({imgSrc: dataURL}));
 			return true;
 		}
 
 		if (request.msg === 'track_GA_event') {
-			//trackGAEvent(request.eventName, request.eventValue);
+			Analytics.fireEvent(request.eventName, request.eventParams);
 		}
 	}
 });
