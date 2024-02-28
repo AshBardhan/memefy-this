@@ -23,9 +23,6 @@ Icon
 node_modules/
 *.log
 
-## Source Files
-src/**/**.css*
-
 ## Deployment
 dist/
 *.zip

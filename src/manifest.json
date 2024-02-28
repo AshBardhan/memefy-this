@@ -14,19 +14,19 @@
     "extension_pages": "script-src 'self'; object-src 'self'"
   },
   "background": {
-    "service_worker": "src/service-worker.js",
+    "service_worker": "service-worker.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*", "file:///*/*"],
       "css": [
-        "src/content_scripts/inject.css"
+        "content_scripts/inject.css"
       ],
       "js": [
-        "src/content_scripts/_constants.js",
-        "src/content_scripts/_templates.js",
-        "src/content_scripts/inject.js"
+        "content_scripts/_constants.js",
+        "content_scripts/_templates.js",
+        "content_scripts/inject.js"
       ]
     }
   ],
@@ -41,6 +41,6 @@
       "38": "icons/icon38.png"
     },
     "default_title": "Memefy This",
-    "default_popup": "src/popup.html"
+    "default_popup": "popup.html"
   }
 }

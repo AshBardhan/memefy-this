@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 			},
 			build: {
 				files: {
-					'src/content_scripts/inject.css': 'styles/inject.scss'
+					'dist/content_scripts/inject.css': 'src/styles/inject.scss'
 				}
 			}
 		},
@@ -21,12 +21,10 @@ module.exports = function (grunt) {
 			'dev' : ['dist/']
 		},
 		copy: {
-			'folders': {
-				src: ['src/**', '_locales/**', 'icons/**'],
-				dest: 'dist/'
-			},
 			'files': {
-				src: ['manifest.json'],
+				expand: true,
+				cwd: 'src',
+				src: ['**/**', '!styles/**'],
 				dest: 'dist/'
 			}
 		},
@@ -48,15 +46,11 @@ module.exports = function (grunt) {
 		watch: {
 			'src': {
 				files: ['src/**'],
-				tasks: ['copy:folders']
+				tasks: ['copy']
 			},
 			'sass': {
-				files: ['styles/**'],
+				files: ['src/styles/**'],
 				tasks: ['sass']
-			},
-			'manifest': {
-				files: ['manifest.json'],
-				tasks: ['copy:files']
 			}
 		}
 	});
