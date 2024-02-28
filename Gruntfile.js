@@ -37,6 +37,14 @@ module.exports = function (grunt) {
 				dest: 'memefy-this.zip'
 			}
 		},
+		uglify: {
+			'js': {
+				expand: true,
+				cwd: 'dist',
+				src: ['**/*.js'],
+				dest: 'dist/'
+			}
+		},
 		watch: {
 			'src': {
 				files: ['src/**'],
@@ -56,8 +64,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-zip');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
-	grunt.registerTask('build', ['clean:build', 'sass', 'copy', 'zip']);
+	grunt.registerTask('build', ['clean:build', 'sass', 'copy', 'uglify', 'zip']);
 	grunt.registerTask('dev', ['clean:dev', 'sass', 'copy', 'watch']);
 };
