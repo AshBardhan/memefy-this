@@ -14,7 +14,7 @@
     "grunt-sass": "^3.1.0",
     "grunt-zip": "^0.17.1",
     "load-grunt-config": "^4.0.1",
-    "node-sass": "^9.0.0"
+    "sass": "^1.87.0"
   },
   "repository": {
     "type": "git",
