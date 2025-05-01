@@ -20,7 +20,7 @@ If you find this application much useful, show your support by all means
 
 - [Fork this repo](https://help.github.com/articles/fork-a-repo) and clone it on your system.
 - Make sure that you're using node version **v18.7.0** for this application. Use [nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating) for switching to this node versions.
-- Install all the required dependencies by running `yarn install`.
+- Install all the required dependencies by running `npm install`.
 - Create a new branch out off `master` for your fix/feature by running `git checkout -b new-feature`.
 - Build this project by running the following commands
   - `grunt dev` - This creates `dist` folder containing unminified files for the chrome extension and a watcher task.
