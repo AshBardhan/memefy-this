@@ -1,6 +1,6 @@
 {
   "name": "Memefy This",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "manifest_version": 3,
   "description": "Make Memes Online Instantly",
   "homepage_url": "https://www.producthunt.com/posts/memefy-this",
@@ -19,7 +19,11 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*", "file:///*/*"],
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file:///*/*"
+      ],
       "css": [
         "content_scripts/inject.css"
       ],
@@ -34,7 +38,9 @@
     "storage",
     "contextMenus"
   ],
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "action": {
     "default_icon": {
       "19": "icons/icon19.png",
